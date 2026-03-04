@@ -1,0 +1,41 @@
+﻿<Window x:Class="AppCrmLourde.FenetreAjouterModifier"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ajouter / Modifier" Height="470" Width="400"
+        WindowStartupLocation="CenterScreen"
+        Background="White">
+
+    <StackPanel Margin="20">
+        <TextBlock Text="Type :" FontWeight="Bold"/>
+        <ComboBox x:Name="cbType" Margin="0,0,0,10">
+            <ComboBoxItem Content="Client"/>
+            <ComboBoxItem Content="Prospect"/>
+        </ComboBox>
+
+        <TextBlock Text="Nom :" FontWeight="Bold"/>
+        <TextBox x:Name="txtNom" Margin="0,0,0,10"/>
+
+        <TextBlock Text="Prénom :" FontWeight="Bold"/>
+        <TextBox x:Name="txtPrenom" Margin="0,0,0,10"/>
+
+        <TextBlock Text="Mail :" FontWeight="Bold"/>
+        <TextBox x:Name="txtMail" Margin="0,0,0,10"/>
+
+        <TextBlock Text="Téléphone :" FontWeight="Bold"/>
+        <TextBox x:Name="txtTel" Margin="0,0,0,10"/>
+
+        <TextBlock Text="Ville :" FontWeight="Bold"/>
+        <TextBox x:Name="txtVille" Margin="0,0,0,10"/>
+
+        <TextBlock Text="Code postal :" FontWeight="Bold"/>
+        <TextBox x:Name="txtCP" Margin="0,0,0,10"/>
+
+        <TextBlock Text="Rue :" FontWeight="Bold"/>
+        <TextBox x:Name="txtRue" Margin="0,0,0,10"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Annuler" Width="100" Margin="0,10,10,0" Click="BtnAnnuler_Click"/>
+            <Button Content="Valider" Width="100" Margin="0,10,0,0" Background="#2196F3" Foreground="White" Click="BtnValider_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

@@ -1,0 +1,26 @@
+﻿<Window x:Class="AppCrmLourde.FenetreAjouterRendezVous"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ajouter un rendez-vous" Height="300" Width="400"
+        WindowStartupLocation="CenterScreen"
+        Background="White">
+
+    <StackPanel Margin="20">
+        <TextBlock Text="Client / Prospect :" FontWeight="Bold"/>
+        <ComboBox x:Name="cbContacts" Margin="0,0,0,10" DisplayMemberPath="NomPrenomType"/>
+
+        <TextBlock Text="Date :" FontWeight="Bold"/>
+        <DatePicker x:Name="dpDate" Margin="0,0,0,10"/>
+
+        <TextBlock Text="Heure :" FontWeight="Bold"/>
+        <TextBox x:Name="txtHeure" Margin="0,0,0,10" Text="09:00"/>
+
+        <TextBlock Text="Durée (heure) :" FontWeight="Bold"/>
+        <TextBox x:Name="txtDuree" Margin="0,0,0,10" Text="0"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Annuler" Width="100" Margin="0,10,10,0" Click="BtnAnnuler_Click"/>
+            <Button Content="Valider" Width="100" Margin="0,10,0,0" Background="#2196F3" Foreground="White" Click="BtnValider_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

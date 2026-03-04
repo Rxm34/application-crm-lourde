@@ -1,0 +1,128 @@
+2025-11-26 16:19:26 - Utilisateur inconnu - Suppression RDV Id: 13
+2025-11-26 16:21:54 - Utilisateur inconnu - Suppression RDV Id=16
+[2025-11-26 16:31:56] Rémy Borde (remy.borde34@gmail.com) : Ajout RDV : Client: 4, Prospect: N/A, Date: 2025-11-26, Heure: 16:31, Durée: 1h
+[2025-11-26 16:44:56] Rémy Borde (remy.borde34@gmail.com) : Ajout facture : Facture #0 - Client: Bernard Ouestcelait, Produit: FERRARI, Qte: 4, PrixTotal: 127
+[2025-12-03 13:14:52] Rémy Borde (remy.borde34@gmail.com) : Modification RDV : AVANT : IdContact: 17, Client: AppCrmLourde.Client, Prospect: N/A, Date: 2025-11-26, Heure: 16:31:00, Durée: 1h
+APRES : IdContact: 17, Client: 5, Prospect: N/A, Date: 2025-11-26, Heure: 16:32, Durée: 1h
+[2025-12-03 13:20:38] Rémy Borde (remy.borde34@gmail.com) : Modification RDV : AVANT → IdContact: 17, Client: Bernard, Prospect: N/A, Date: 2025-11-26, Heure: 16:32:00, Durée: 1h
+APRÈS → IdContact: 17, Client: Bernard, Prospect: N/A, Date: 2025-12-03, Heure: 16:34, Durée: 1h
+[2025-12-03 13:45:42] Rémy Borde (remy.borde34@gmail.com) : Ajout RDV : Client: Bernard, Prospect: N/A, Date: 2025-12-03, Heure: 12:00, Durée: 1h
+[2025-12-03 13:51:21] Rémy Borde (remy.borde34@gmail.com) : Ajout : Prospect : Borde Rémy, Mail: remy.borde34@gmail.com
+[2025-12-03 13:56:40] Rémy Borde (remy.borde34@gmail.com) : Modification : Prospect ID: 1
+AVANT → Nom: Borde, Prénom: Rémy, Mail: remy.borde34@gmail.com, Téléphone: 06 30 14 43 51, Ville: Montret, CP: 71440, Rue: 30 Lotissement le Vallon
+APRÈS → Nom: Borde, Prénom: Rémy, Mail: remy.borde34@gmail.com, Téléphone: 06 30 14 43 51, Ville: Montret, CP: 71441, Rue: 30 Lotissement le Vallon
+[2025-12-03 13:57:19] Rémy Borde (remy.borde34@gmail.com) : Suppression : prospect : Borde Rémy
+[2025-12-03 13:58:17] Rémy Borde (remy.borde34@gmail.com) : Ajout : Prospect : Nom: Borde, Prénom: Rémy, Mail: remy.borde34@gmail.com, Téléphone: 06 30 14 43 51, Ville: Montret, CP: 71440, Rue: 30 Lotissement le Vallon
+[2025-12-03 14:03:01] Rémy Borde (remy.borde34@gmail.com) : Suppression : client : Nom: TEST, Prénom: TEST, Mail: TEST@TEST.FR, Téléphone: 06 06 06 06 06, Ville: TEST, CP: 12456, Rue: TEST
+[2025-12-03 14:15:54] Rémy Borde (remy.borde34@gmail.com) : Ajout produit : ID: 2, Nom: Lamborghini, Desc: Aventador, Prix: 1000000, Stock: 14
+[2025-12-03 14:17:15] Rémy Borde (remy.borde34@gmail.com) : Modification produit : ID: 2
+AVANT → Nom: Lamborghini, Desc: Aventador, Prix: 1000000, Stock: 14
+APRÈS → Nom: Lamborghini, Desc: Aventador, Prix: 1000000, Stock: 14
+[2025-12-03 14:17:22] Rémy Borde (remy.borde34@gmail.com) : Modification produit : ID: 2
+AVANT → Nom: Lamborghini, Desc: Aventador, Prix: 1000000, Stock: 14
+APRÈS → Nom: Lamborghini, Desc: Aventador, Prix: 1000000, Stock: 13
+[2025-12-03 14:17:39] Rémy Borde (remy.borde34@gmail.com) : Suppression produit : ID: 2, Nom: Lamborghini, Desc: Aventador, Prix: 1000000, Stock: 13
+[2025-12-03 15:07:29] Rémy Borde (remy.borde34@gmail.com) : Suppression facture : ID: 6, IdCli: 5, NomClient: Bernard Ouestcelait, IdProd: 1, NomProduit: FERRARI, Qte: 4, PrixProd: 56, PrixTotal: 127, Date: 26/11/2025
+[2025-12-03 15:15:37] Rémy Borde (remy.borde34@gmail.com) : Ajout facture : ID: 0, IdCli: 5, NomClient: Bernard Ouestcelait, IdProd: 1, NomProduit: FERRARI, Qte: 2, PrixProd: 0, PrixTotal: 0, Date: 03/12/2025
+[2025-12-03 15:34:15] Rémy Borde (remy.borde34@gmail.com) : Ajout facture : ID: 0, IdCli: 5, NomClient: Bernard Ouestcelait, IdProd: 1, NomProduit: FERRARI, Qte: 2, PrixProd: 0, PrixTotal: 0, Date: 03/12/2025
+[2025-12-03 15:34:26] Rémy Borde (remy.borde34@gmail.com) : Suppression facture : ID: 0, IdCli: 5, NomClient: Bernard Ouestcelait, IdProd: 1, NomProduit: FERRARI, Qte: 2, PrixProd: 0, PrixTotal: 0, Date: 03/12/2025
+[2025-12-03 15:48:55] Rémy Borde (remy.borde34@gmail.com) : Ajout facture : ID: 0, IdCli: 5, NomClient: Bernard Ouestcelait, IdProd: 1, NomProduit: FERRARI, Qte: 4, PrixProd: 121454, PrixTotal: 485816, Date: 03/12/2025
+[2025-12-03 16:01:12] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-15 15:40:55] Erreur Inscription API : Le code d'état de réponse n'indique pas la réussite : 500 (Internal Server Error).
+[2025-12-15 15:40:55] Erreur Inscription API : Le code d'état de réponse n'indique pas la réussite : 500 (Internal Server Error).
+[2025-12-15 15:40:56] Erreur Inscription API : Le code d'état de réponse n'indique pas la réussite : 500 (Internal Server Error).
+[2025-12-15 16:01:16] Erreur Inscription API : Le code d'état de réponse n'indique pas la réussite : 500 (Internal Server Error).
+[2025-12-15 16:10:34] Erreur Inscription API : Le code d'état de réponse n'indique pas la réussite : 500 (Internal Server Error).
+[2025-12-15 16:11:13] Création Manager via API : Nom: Borde, Prénom: Remy, Email: remy.borde34@gmail.com, ID Manager: 2
+[2025-12-15 16:11:39] Manager inconnu : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-15 16:16:42] Manager inconnu : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-15 16:19:08] Manager inconnu : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-15 16:20:40] Manager inconnu : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-15 16:28:04] Manager inconnu : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-15 16:39:24] Manager inconnu : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-15 16:44:10] Manager inconnu : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-15 17:00:42] Manager inconnu : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-15 17:07:42] Manager inconnu : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-15 17:12:00] Manager inconnu : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-15 17:18:43] Manager inconnu : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-15 17:19:25] Manager inconnu : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-15 17:27:13] Création Manager via API : Nom: Borde, Prénom: Remy, Email: remy.borde34@gmail.com, ID Manager: 2
+[2025-12-15 17:27:31] Manager inconnu : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-15 17:29:33] Manager inconnu : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-15 17:43:31] Manager inconnu : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-15 17:45:05] Manager inconnu : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-16 10:25:35] Manager inconnu : Erreur inattendue lors de la connexion : Authentication to host 'localhost' for user 'root' using method 'mysql_native_password' failed with message: Access denied for user 'root'@'localhost' (using password: NO)
+[2025-12-16 10:26:31] Manager inconnu : Erreur inattendue lors de la connexion : Authentication to host 'localhost' for user 'root' using method 'mysql_native_password' failed with message: Access denied for user 'root'@'localhost' (using password: NO)
+[2025-12-16 10:29:11] Manager inconnu : Erreur inattendue lors de la connexion : Table 'application_crm_lourde.manager' doesn't exist
+[2025-12-16 10:37:04] Manager inconnu : Erreur inattendue lors de la connexion : Unknown column 'PassMan' in 'where clause'
+[2025-12-16 10:37:39] Manager inconnu : Tentative de connexion échouée pour remy.borde34@gmail.com : Email ou mot de passe invalide.
+[2025-12-16 10:37:50] Manager inconnu : Tentative de connexion échouée pour remy.borde34@gmail.com : Email ou mot de passe invalide.
+[2025-12-16 10:38:40] Création Manager : Nom:Borde, Prénom:Rémy, Email:remy.borde34@gmail.com
+[2025-12-16 10:38:53] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-16 10:39:30] Rémy Borde (remy.borde34@gmail.com) : Ajout : Client : Nom: test, Prénom: test, Mail: test@test.com, Téléphone: 06 06 06 06 06, Ville: chalon, CP: 71100, Rue: rue du lait
+[2025-12-16 10:49:49] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-16 10:53:47] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-16 10:53:59] Rémy Borde (remy.borde34@gmail.com) : Modification : Client ID:6 modifié
+[2025-12-16 10:57:13] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-16 11:03:46] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-16 11:06:04] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-16 11:07:08] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-16 11:09:21] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-16 11:12:58] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-16 11:14:20] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-16 11:14:32] Rémy Borde (remy.borde34@gmail.com) : Ajout RDV : Contact:  Bernard Ouestcelait, Date: 2025-12-16, Heure: 11:00, Durée: 1
+[2025-12-16 11:17:41] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-16 11:18:01] Rémy Borde (remy.borde34@gmail.com) : Modification RDV : ID: 21
+AVANT → Date: 2025-12-16, Heure: 11:00:00, Durée: 1
+APRÈS → Date: 2025-12-16, Heure: 11:00:00, Durée: 2
+[2025-12-16 11:18:15] Rémy Borde (remy.borde34@gmail.com) : Suppression RDV : ID:17 - Bernard Ouestcelait
+[2025-12-16 11:19:06] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-16 11:22:01] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-16 11:24:10] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-16 11:24:26] Rémy Borde (remy.borde34@gmail.com) : Ajout produit : ID:2, Nom:AAA, Prix:412, Stock:5
+[2025-12-16 11:24:39] Rémy Borde (remy.borde34@gmail.com) : Modification produit : ID:2
+AVANT → Nom:AAA, Desc:SORFHS, Prix:412, Stock:5
+APRÈS → Nom:AAA, Desc:SORFHS, Prix:41, Stock:5
+[2025-12-16 11:24:46] Rémy Borde (remy.borde34@gmail.com) : Suppression produit : ID:2, Nom:AAA, Prix:41, Stock:5
+[2025-12-16 11:25:05] Rémy Borde (remy.borde34@gmail.com) : Suppression : Client : test2 test
+[2025-12-16 11:25:35] Rémy Borde (remy.borde34@gmail.com) : Ajout facture : ID:1, Client:Bernard Ouestcelait, Produit:FERRARI, Qte:6, Prix:728724, Date:16/12/2025
+[2025-12-16 11:27:00] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-16 11:27:08] Borde (remy.borde34@gmail.com) : Modification facture : ID 1, Client Bernard, Produit FERRARI
+[2025-12-16 11:27:08] Rémy Borde (remy.borde34@gmail.com) : Modification facture : AVANT → ID:1, Client:Bernard Ouestcelait, Produit:FERRARI, Qte:6, Prix:728724, Date:16/12/2025
+APRÈS → ID:1, Client:Bernard Ouestcelait, Produit:FERRARI, Qte:5, Prix:607270, Date:16/12/2025
+[2025-12-16 11:27:18] Rémy Borde (remy.borde34@gmail.com) : Suppression facture : ID:1, Client:Bernard Ouestcelait, Produit:FERRARI, Qte:5, Prix:607270, Date:16/12/2025
+[2025-12-16 11:27:28] Rémy Borde (remy.borde34@gmail.com) : Ajout facture : ID:2, Client:Bernard Ouestcelait, Produit:FERRARI, Qte:6, Prix:728724, Date:16/12/2025
+[2025-12-16 11:35:56] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-16 11:35:59] Rémy Borde (remy.borde34@gmail.com) : Chargement Factures : Nombre factures: 1
+[2025-12-16 11:35:59] Rémy Borde (remy.borde34@gmail.com) : Chargement Contacts : Nombre contacts: 2
+[2025-12-16 11:35:59] Rémy Borde (remy.borde34@gmail.com) : Chargement Dashboard : CA mois: 728724,00 €, RDV mois: 2, Produits vendus: 6, Top client: Bernard
+[2025-12-16 11:35:59] Rémy Borde (remy.borde34@gmail.com) : Ouverture Dashboard : Page Dashboard chargée
+[2025-12-16 11:36:05] Rémy Borde (remy.borde34@gmail.com) : Navigation : Retour vers PageAccueil
+[2025-12-17 12:57:40] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-17 12:58:36] Rémy Borde (remy.borde34@gmail.com) : Ajout : Prospect : Nom:TEST, Prénom:TEST
+[2025-12-17 12:58:44] Rémy Borde (remy.borde34@gmail.com) : Modification : Prospect ID:3 modifié
+[2025-12-17 12:58:50] Rémy Borde (remy.borde34@gmail.com) : Suppression : Prospect : TEST TEST4524
+[2025-12-17 12:58:52] Rémy Borde (remy.borde34@gmail.com) : Suppression : Prospect : Borde Rémy
+[2025-12-17 12:58:55] Rémy Borde (remy.borde34@gmail.com) : Suppression : Client : Bernard Ouestcelait
+[2025-12-17 12:59:49] Rémy Borde (remy.borde34@gmail.com) : Ajout : Client : Nom:test, Prénom:test
+[2025-12-17 13:00:07] Rémy Borde (remy.borde34@gmail.com) : Ajout RDV : Contact:  test test, Date: 2025-12-17, Heure: 13:00, Durée: 1
+[2025-12-17 13:00:34] Rémy Borde (remy.borde34@gmail.com) : Ajout facture : ID:1, Client:test test, Produit:FERRARI, Qte:5, Prix:607270, Date:17/12/2025
+[2025-12-17 13:00:38] Rémy Borde (remy.borde34@gmail.com) : Chargement Factures : Nombre factures: 1
+[2025-12-17 13:00:38] Rémy Borde (remy.borde34@gmail.com) : Chargement Contacts : Nombre contacts: 1
+[2025-12-17 13:00:38] Rémy Borde (remy.borde34@gmail.com) : Chargement Dashboard : CA mois: 607270,00 €, RDV mois: 1, Produits vendus: 5, Top client: test
+[2025-12-17 13:00:38] Rémy Borde (remy.borde34@gmail.com) : Ouverture Dashboard : Page Dashboard chargée
+[2025-12-17 13:12:25] Rémy Borde (remy.borde34@gmail.com) : Navigation : Retour vers PageAccueil
+[2025-12-17 15:15:00] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2025-12-17 15:16:14] Rémy Borde (remy.borde34@gmail.com) : Chargement Factures : Nombre factures: 1
+[2025-12-17 15:16:14] Rémy Borde (remy.borde34@gmail.com) : Chargement Contacts : Nombre contacts: 1
+[2025-12-17 15:16:14] Rémy Borde (remy.borde34@gmail.com) : Chargement Dashboard : CA mois: 607270,00 €, RDV mois: 1, Produits vendus: 5, Top client: test
+[2025-12-17 15:16:14] Rémy Borde (remy.borde34@gmail.com) : Ouverture Dashboard : Page Dashboard chargée
+[2025-12-17 15:16:16] Rémy Borde (remy.borde34@gmail.com) : Navigation : Retour vers PageAccueil
+[2025-12-17 15:27:38] Rémy Borde (remy.borde34@gmail.com) : Chargement Factures : Nombre factures: 1
+[2025-12-17 15:27:38] Rémy Borde (remy.borde34@gmail.com) : Chargement Contacts : Nombre contacts: 1
+[2025-12-17 15:27:38] Rémy Borde (remy.borde34@gmail.com) : Chargement Dashboard : CA mois: 607270,00 €, RDV mois: 1, Produits vendus: 5, Top client: test
+[2025-12-17 15:27:38] Rémy Borde (remy.borde34@gmail.com) : Ouverture Dashboard : Page Dashboard chargée
+[2025-12-17 15:28:23] Rémy Borde (remy.borde34@gmail.com) : Navigation : Retour vers PageAccueil
+[2025-12-17 15:28:46] Rémy Borde (remy.borde34@gmail.com) : Ajout facture : ID:2, Client:test test, Produit:FERRARI, Qte:1, Prix:121454, Date:17/12/2025
+[2026-03-04 13:15:19] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2026-03-04 13:16:39] Rémy Borde (remy.borde34@gmail.com) : Ajout : Prospect : Nom:QERSFGTSD, Prénom:QEGDF
