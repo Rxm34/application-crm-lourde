@@ -11,7 +11,7 @@ namespace AppCrmLourde
 {
     public partial class PageGestionFacture : Page
     {
-        private string connectionString = "server=localhost;database=application_crm_lourde;uid=root;pwd=root;";
+        private string connectionString = "server=localhost;database=application_crm_lourde;uid=root;pwd=root;Convert Zero Datetime=True;";
         private readonly string logFile = "logs.txt";
 
         private List<Facture> allEntries = new List<Facture>();
@@ -185,12 +185,33 @@ namespace AppCrmLourde
             Facture f = FacturesDataGrid.SelectedItem as Facture;
             if (f == null) { MessageBox.Show("Veuillez sélectionner une facture."); return; }
 
-            FenetreModifierFacture fenetre = new FenetreModifierFacture(f);
-            if (fenetre.ShowDialog() == true)
+            // On ouvre la fenêtre de gestion des lignes
+            FenetreLignesFacture fenetre = new FenetreLignesFacture(f);
+            fenetre.ShowDialog();
+
+            // Au retour, on recalcule et on rafraîchit
+            RecalculerTotalFacture(f.IdFact);
+            ChargerFactures();
+        }
+
+        // Ajoute cette méthode à la fin de ta classe
+        public void RecalculerTotalFacture(int idFacture)
+        {
+            try
             {
-                ChargerFactures();
-                LogAction("Modification facture", $"ID:{f.IdFact}");
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    // Somme de toutes les lignes pour cette facture
+                    string query = @"UPDATE factures 
+                             SET PrixFact = (SELECT IFNULL(SUM(Qte * PUProd), 0) FROM lignefact WHERE IdFact = @id)
+                             WHERE IdFact = @id";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@id", idFacture);
+                    cmd.ExecuteNonQuery();
+                }
             }
+            catch (Exception ex) { MessageBox.Show("Erreur recalcul total : " + ex.Message); }
         }
 
         private void BtnSupprimer_Click(object sender, RoutedEventArgs e)

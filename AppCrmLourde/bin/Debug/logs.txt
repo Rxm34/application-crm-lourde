@@ -131,3 +131,19 @@ APRÈS → ID:1, Client:Bernard Ouestcelait, Produit:FERRARI, Qte:5, Prix:607270
 [2026-03-11 15:58:22] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
 [2026-03-11 16:10:00] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
 [2026-03-11 16:10:38] Rémy Borde (remy.borde34@gmail.com) : Ajout facture : ID:4, Client:Dupont Jean, Total:0
+[2026-03-11 16:39:03] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2026-03-11 16:39:14] Rémy Borde (remy.borde34@gmail.com) : Ajout facture : ID:5, Client:Dupont Jean, Total:0
+[2026-03-11 16:43:30] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2026-03-11 16:43:39] Rémy Borde (remy.borde34@gmail.com) : Ajout facture : ID:6, Client:Dupont Jean, Total:0
+[2026-03-11 16:44:44] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2026-03-11 16:44:51] Rémy Borde : Ouverture Dashboard : Page Dashboard chargée
+[2026-03-11 16:46:10] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2026-03-11 16:48:53] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2026-03-11 16:51:07] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
+[2026-03-11 16:51:19] Rémy Borde (remy.borde34@gmail.com) : Suppression facture : ID:2
+[2026-03-11 16:51:22] Rémy Borde (remy.borde34@gmail.com) : Suppression facture : ID:3
+[2026-03-11 16:51:25] Rémy Borde (remy.borde34@gmail.com) : Suppression facture : ID:4
+[2026-03-11 16:51:27] Rémy Borde (remy.borde34@gmail.com) : Suppression facture : ID:5
+[2026-03-11 16:51:31] Rémy Borde (remy.borde34@gmail.com) : Suppression facture : ID:6
+[2026-03-11 16:51:33] Rémy Borde (remy.borde34@gmail.com) : Ajout facture : ID:7, Client:Dupont Jean, Total:0
+[2026-03-11 16:52:03] Rémy Borde : Ouverture Dashboard : Page Dashboard chargée

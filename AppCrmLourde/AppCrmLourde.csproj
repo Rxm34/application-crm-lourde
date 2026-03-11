@@ -183,9 +183,6 @@
     <Compile Include="FenetreLignesFacture.xaml.cs">
       <DependentUpon>FenetreLignesFacture.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FenetreAjouterModifierLigne.xaml.cs">
-      <DependentUpon>FenetreAjouterModifierLigne.xaml</DependentUpon>
-    </Compile>
     <Compile Include="FenetreAjouterModifier.xaml.cs">
       <DependentUpon>FenetreAjouterModifier.xaml</DependentUpon>
     </Compile>
@@ -194,9 +191,6 @@
     </Compile>
     <Compile Include="FenetreAjouterRendezVous.xaml.cs">
       <DependentUpon>FenetreAjouterRendezVous.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="FenetreModifierFacture.xaml.cs">
-      <DependentUpon>FenetreModifierFacture.xaml</DependentUpon>
     </Compile>
     <Compile Include="FenetreModifierProduit.xaml.cs">
       <DependentUpon>FenetreModifierProduit.xaml</DependentUpon>
@@ -221,10 +215,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FenetreAjouterModifierLigne.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="FenetreLignesFacture.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -238,10 +228,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FenetreAjouterRendezVous.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="FenetreModifierFacture.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -317,6 +303,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

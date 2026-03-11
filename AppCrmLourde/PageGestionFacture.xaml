@@ -31,16 +31,14 @@
         </DockPanel>
 
         <DataGrid x:Name="FacturesDataGrid"
-                  Grid.Row="1"
-                  ItemsSource="{Binding Factures}"
-                  AutoGenerateColumns="False"
-                  CanUserAddRows="False"
-                  Margin="0,0,0,10">
+          Grid.Row="1"
+          ItemsSource="{Binding Factures}"
+          AutoGenerateColumns="False"
+          CanUserAddRows="False"
+          Margin="0,0,0,10">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id Facture" Binding="{Binding IdFact}" Width="50"/>
+                <DataGridTextColumn Header="Id" Binding="{Binding IdFact}" Width="50"/>
                 <DataGridTextColumn Header="Client" Binding="{Binding NomClient}" Width="2*"/>
-                <DataGridTextColumn Header="Produit" Binding="{Binding NomProduit}" Width="2*"/>
-                <DataGridTextColumn Header="Quantité" Binding="{Binding Lignes[0].Qte}" Width="*"/>
                 <DataGridTextColumn Header="Prix Total" Binding="{Binding PrixFact, StringFormat={}{0:C2}}" Width="*"/>
                 <DataGridTextColumn Header="Date" Binding="{Binding DateFact, StringFormat=dd/MM/yyyy}" Width="*"/>
             </DataGrid.Columns>
