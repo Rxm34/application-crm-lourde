@@ -32,18 +32,11 @@ namespace AppCrmLourde
         private void LogAction(string action, string details)
         {
             string managerInfo = SessionManager.ManagerConnecte != null
-                ? $"{SessionManager.ManagerConnecte.PrenomMan} {SessionManager.ManagerConnecte.NomMan} ({SessionManager.ManagerConnecte.MailMan})"
+                ? $"{SessionManager.ManagerConnecte.PrenomMan} {SessionManager.ManagerConnecte.NomMan}"
                 : "Manager inconnu";
 
             string logEntry = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {managerInfo} : {action} : {details}";
-            try
-            {
-                File.AppendAllText(logFile, logEntry + Environment.NewLine);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erreur lors de l'écriture du log : " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+            try { File.AppendAllText(logFile, logEntry + Environment.NewLine); } catch { }
         }
 
         private void ChargerDashboard()
@@ -51,31 +44,29 @@ namespace AppCrmLourde
             ChargerFactures();
             ChargerContacts();
 
+            // 1. Calcul du CA du mois en cours
             double caMois = allFactures
                 .Where(f => f.DateFact.Month == DateTime.Now.Month && f.DateFact.Year == DateTime.Now.Year)
                 .Sum(f => f.PrixFact);
-            lblCaMois.Text = caMois.ToString("0.00") + " €";
+            lblCaMois.Text = caMois.ToString("N2") + " €";
 
+            // 2. Nombre de RDV du mois
             int rdvMois = allContacts.Count(c => c.DateRdv.Month == DateTime.Now.Month && c.DateRdv.Year == DateTime.Now.Year);
             lblRdvMois.Text = rdvMois.ToString();
 
+            // 3. Nombre total de produits vendus (Somme des quantités dans les lignes)
             int prodVendus = allFactures.Sum(f => f.Lignes.Sum(l => l.Qte));
             lblProduitsVendus.Text = prodVendus.ToString();
 
+            // 4. Top Client (Celui qui a généré le plus de CA)
             var topClient = allFactures
                 .GroupBy(f => f.NomClient)
-                .Select(g => new
-                {
-                    Nom = g.First().NomClient.Split(' ')[0],
-                    Total = g.Sum(a => a.PrixFact)
-                })
+                .Select(g => new { Nom = g.Key, Total = g.Sum(a => a.PrixFact) })
                 .OrderByDescending(x => x.Total)
                 .FirstOrDefault();
-
             lblTopClient.Text = topClient?.Nom ?? "Aucun";
 
-            LogAction("Chargement Dashboard", $"CA mois: {caMois:0.00} €, RDV mois: {rdvMois}, Produits vendus: {prodVendus}, Top client: {topClient?.Nom ?? "Aucun"}");
-
+            // --- GRAPHIQUE CA PAR MOIS ---
             int currentYear = DateTime.Now.Year;
             var caParMois = Enumerable.Range(1, 12)
                 .Select(month => allFactures
@@ -91,23 +82,14 @@ namespace AppCrmLourde
                     Values = new ChartValues<double>(caParMois),
                     Fill = Brushes.CornflowerBlue,
                     DataLabels = true,
-                    LabelPoint = point => point.Y.ToString("0.00 €")
+                    LabelPoint = point => point.Y.ToString("N0") + " €"
                 }
             };
-            chartCaParMois.AxisX.Clear();
-            chartCaParMois.AxisX.Add(new Axis
-            {
-                Title = "Mois",
-                Labels = Enumerable.Range(1, 12)
-                    .Select(m => System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(m))
-                    .ToList()
-            });
-            chartCaParMois.AxisY.Clear();
-            chartCaParMois.AxisY.Add(new Axis { Title = "Montant (€)" });
-            chartCaParMois.DataTooltip = null;
+            SetAxisX(chartCaParMois);
 
+            // --- GRAPHIQUE RDV PAR MOIS ---
             var rdvParMois = Enumerable.Range(1, 12)
-                .Select(month => allContacts.Count(c => c.DateRdv.Month == month && c.DateRdv.Year == currentYear))
+                .Select(month => (double)allContacts.Count(c => c.DateRdv.Month == month && c.DateRdv.Year == currentYear))
                 .ToList();
 
             chartRdv.Series = new SeriesCollection
@@ -115,25 +97,24 @@ namespace AppCrmLourde
                 new LineSeries
                 {
                     Title = "RDV",
-                    Values = new ChartValues<int>(rdvParMois),
+                    Values = new ChartValues<double>(rdvParMois),
                     Stroke = Brushes.Green,
-                    Fill = Brushes.Transparent,
-                    PointGeometrySize = 12,
-                    DataLabels = true,
-                    LabelPoint = point => point.Y.ToString()
+                    PointGeometrySize = 10,
+                    DataLabels = true
                 }
             };
-            chartRdv.AxisX.Clear();
-            chartRdv.AxisX.Add(new Axis
+            SetAxisX(chartRdv);
+        }
+
+        private void SetAxisX(CartesianChart chart)
+        {
+            chart.AxisX.Clear();
+            chart.AxisX.Add(new Axis
             {
-                Title = "Mois",
                 Labels = Enumerable.Range(1, 12)
                     .Select(m => System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(m))
                     .ToList()
             });
-            chartRdv.AxisY.Clear();
-            chartRdv.AxisY.Add(new Axis { Title = "Nombre RDV" });
-            chartRdv.DataTooltip = null;
         }
 
         private void ChargerFactures()
@@ -144,36 +125,45 @@ namespace AppCrmLourde
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
                     conn.Open();
+                    // On récupère les factures et on joint les lignes pour les quantités
                     string query = @"
-                        SELECT f.*, c.NomCli, c.PrenomCli, p.NomProd, p.PrixProd
+                        SELECT f.*, c.NomCli, c.PrenomCli, lf.IdProd, lf.Qte
                         FROM factures f
                         JOIN clients c ON f.IdCli = c.IdCli
-                        JOIN produits p ON f.IdProd = p.IdProd";
+                        LEFT JOIN lignefact lf ON f.IdFact = lf.IdFact";
+
                     MySqlCommand cmd = new MySqlCommand(query, conn);
-                    MySqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        Facture f = new Facture
+                        while (reader.Read())
                         {
-                            IdFact = reader.GetInt32("IdFact"),
-                            IdCli = reader.GetInt32("IdCli"),
-                            NomClient = reader.GetString("NomCli") + " " + reader.GetString("PrenomCli"),
-                            NomProduit = reader.GetString("NomProd"),
-                            PrixFact = reader.GetDouble("PrixFact"),
-                            DateFact = reader.GetDateTime("DateFact")
-                        };
-                        f.Lignes.Add(new LigneFact
-                        {
-                            IdFact = f.IdFact,
-                            IdProd = reader.GetInt32("IdProd"),
-                            Qte = reader.GetInt32("QteProd")
-                        });
-                        allFactures.Add(f);
+                            int idFact = reader.GetInt32("IdFact");
+                            var factureExistante = allFactures.FirstOrDefault(x => x.IdFact == idFact);
+
+                            if (factureExistante == null)
+                            {
+                                factureExistante = new Facture
+                                {
+                                    IdFact = idFact,
+                                    NomClient = reader.GetString("NomCli") + " " + reader.GetString("PrenomCli"),
+                                    PrixFact = reader.GetDouble("PrixFact"),
+                                    DateFact = reader.GetDateTime("DateFact")
+                                };
+                                allFactures.Add(factureExistante);
+                            }
+
+                            if (!reader.IsDBNull(reader.GetOrdinal("IdProd")))
+                            {
+                                factureExistante.Lignes.Add(new LigneFact
+                                {
+                                    Qte = reader.GetInt32("Qte")
+                                });
+                            }
+                        }
                     }
                 }
-                LogAction("Chargement Factures", $"Nombre factures: {allFactures.Count}");
             }
-            catch (Exception ex) { MessageBox.Show("Erreur chargement factures : " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show("Erreur factures : " + ex.Message); }
         }
 
         private void ChargerContacts()
@@ -184,112 +174,67 @@ namespace AppCrmLourde
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = @"
-                        SELECT co.*, c.IdCli, c.NomCli, c.PrenomCli, p.IdProsp, p.NomProsp
-                        FROM contacts co
-                        LEFT JOIN clients c ON co.IdCli = c.IdCli
-                        LEFT JOIN prospects p ON co.IdProsp = p.IdProsp";
+                    string query = "SELECT IdContact, DateRdv FROM contacts";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
-                    MySqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        Contact c = new Contact
+                        while (reader.Read())
                         {
-                            IdContact = reader.GetInt32("IdContact"),
-                            DateRdv = reader.GetDateTime("DateRdv"),
-                            HeureRdv = reader.GetTimeSpan("HeureRdv"),
-                            DureeRdv = reader.GetInt32("DureeRdv"),
-                            IdCli = reader["IdCli"] != DBNull.Value ? new Client
+                            allContacts.Add(new Contact
                             {
-                                IdCli = reader.GetInt32("IdCli"),
-                                NomCli = reader.GetString("NomCli"),
-                                PrenomCli = reader.GetString("PrenomCli")
-                            } : null,
-                            IdProsp = reader["IdProsp"] != DBNull.Value ? new Prospect
-                            {
-                                IdProsp = reader.GetInt32("IdProsp"),
-                                NomProsp = reader.GetString("NomProsp")
-                            } : null
-                        };
-                        allContacts.Add(c);
+                                IdContact = reader.GetInt32("IdContact"),
+                                DateRdv = reader.GetDateTime("DateRdv")
+                            });
+                        }
                     }
                 }
-                LogAction("Chargement Contacts", $"Nombre contacts: {allContacts.Count}");
             }
-            catch (Exception ex) { MessageBox.Show("Erreur chargement contacts : " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show("Erreur contacts : " + ex.Message); }
         }
 
-        private BitmapSource RenderToBitmap(UIElement element)
-        {
-            element.Measure(new Size(element.RenderSize.Width, element.RenderSize.Height));
-            element.Arrange(new Rect(new Size(element.RenderSize.Width, element.RenderSize.Height)));
-            RenderTargetBitmap rtb = new RenderTargetBitmap(
-                (int)element.RenderSize.Width,
-                (int)element.RenderSize.Height,
-                96, 96,
-                PixelFormats.Pbgra32);
-            rtb.Render(element);
-            return rtb;
-        }
-
+        // --- EXPORT PDF ---
         private void BtnExportPdf_Click(object sender, RoutedEventArgs e)
         {
-            var saveFileDialog = new Microsoft.Win32.SaveFileDialog
-            {
-                Filter = "PDF files (*.pdf)|*.pdf",
-                FileName = "Dashboard.pdf"
-            };
+            var saveFileDialog = new Microsoft.Win32.SaveFileDialog { Filter = "PDF files (*.pdf)|*.pdf", FileName = "Rapport_Dashboard.pdf" };
 
             if (saveFileDialog.ShowDialog() == true)
             {
                 try
                 {
-                    string filePath = saveFileDialog.FileName;
                     PdfDocument pdfDoc = new PdfDocument();
-
-                    var bitmapCA = RenderToBitmap(chartCaParMois);
-                    AjouterImagePdf(pdfDoc, bitmapCA);
-
-                    var bitmapRDV = RenderToBitmap(chartRdv);
-                    AjouterImagePdf(pdfDoc, bitmapRDV);
-
-                    pdfDoc.Save(filePath);
-                    pdfDoc.Close();
-
-                    MessageBox.Show("PDF téléchargé !");
-                    LogAction("Export PDF", $"Dashboard exporté vers : {filePath}");
+                    AjouterImagePdf(pdfDoc, RenderToBitmap(chartCaParMois), "Évolution du Chiffre d'Affaires");
+                    AjouterImagePdf(pdfDoc, RenderToBitmap(chartRdv), "Évolution des Rendez-vous");
+                    pdfDoc.Save(saveFileDialog.FileName);
+                    MessageBox.Show("Export terminé avec succès !");
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erreur lors de l'export PDF : " + ex.Message);
-                    LogAction("Erreur Export PDF", ex.Message);
-                }
+                catch (Exception ex) { MessageBox.Show("Erreur export : " + ex.Message); }
             }
         }
 
-        private void AjouterImagePdf(PdfDocument pdfDoc, BitmapSource bitmap)
+        private BitmapSource RenderToBitmap(UIElement element)
         {
+            RenderTargetBitmap rtb = new RenderTargetBitmap((int)element.RenderSize.Width, (int)element.RenderSize.Height, 96, 96, PixelFormats.Pbgra32);
+            rtb.Render(element);
+            return rtb;
+        }
+
+        private void AjouterImagePdf(PdfDocument pdfDoc, BitmapSource bitmap, string titre)
+        {
+            PdfPage page = pdfDoc.AddPage();
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+            XFont font = new XFont("Verdana", 20, XFontStyleEx.Bold);
+            gfx.DrawString(titre, font, XBrushes.Black, new XRect(0, 20, page.Width, 40), XStringFormats.Center);
+
             using (var ms = new MemoryStream())
             {
                 PngBitmapEncoder encoder = new PngBitmapEncoder();
                 encoder.Frames.Add(BitmapFrame.Create(bitmap));
                 encoder.Save(ms);
-                ms.Position = 0;
-
                 XImage img = XImage.FromStream(ms);
-                PdfPage page = pdfDoc.AddPage();
-                page.Width = XUnit.FromPoint(img.PixelWidth * 72 / 96.0);
-                page.Height = XUnit.FromPoint(img.PixelHeight * 72 / 96.0);
-
-                XGraphics gfx = XGraphics.FromPdfPage(page);
-                gfx.DrawImage(img, 0, 0, page.Width.Point, page.Height.Point);
+                gfx.DrawImage(img, 50, 70, 500, 300);
             }
         }
 
-        private void BtnRetour_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService?.Navigate(new PageAccueil());
-            LogAction("Navigation", "Retour vers PageAccueil");
-        }
+        private void BtnRetour_Click(object sender, RoutedEventArgs e) => NavigationService?.Navigate(new PageAccueil());
     }
 }

@@ -9,7 +9,6 @@ namespace AppCrmLourde
     public partial class FenetreModifierFacture : Window
     {
         private const string ConnexionString = "server=localhost;database=application_crm_lourde;uid=root;pwd=root;";
-
         private Facture facture;
 
         public List<Client> Clients { get; set; } = new List<Client>();
@@ -21,7 +20,6 @@ namespace AppCrmLourde
             this.facture = facture;
             this.DataContext = this;
 
-            // Charger les listes Client/Produit depuis MySQL
             LoadDependencies();
         }
 
@@ -33,7 +31,7 @@ namespace AppCrmLourde
                 {
                     conn.Open();
 
-                    // Clients
+                    // Chargement des Clients
                     string queryClients = "SELECT IdCli, NomCli, PrenomCli FROM clients";
                     MySqlCommand cmdClients = new MySqlCommand(queryClients, conn);
                     using (var reader = cmdClients.ExecuteReader())
@@ -50,7 +48,7 @@ namespace AppCrmLourde
                         }
                     }
 
-                    // Produits
+                    // Chargement des Produits
                     string queryProduits = "SELECT IdProd, NomProd, PrixProd FROM produits";
                     MySqlCommand cmdProduits = new MySqlCommand(queryProduits, conn);
                     using (var reader = cmdProduits.ExecuteReader())
@@ -68,9 +66,9 @@ namespace AppCrmLourde
                     }
                 }
 
-                // Bind ComboBox et remplir les champs existants
+                // Configuration des ComboBox
                 ClientComboBox.ItemsSource = Clients;
-                ClientComboBox.DisplayMemberPath = "FullName"; // Assurez-vous que FullName existe
+                ClientComboBox.DisplayMemberPath = "FullName";
                 ClientComboBox.SelectedValuePath = "IdCli";
                 ClientComboBox.SelectedValue = facture.IdCli;
 
@@ -78,6 +76,7 @@ namespace AppCrmLourde
                 ProduitComboBox.DisplayMemberPath = "NomProd";
                 ProduitComboBox.SelectedValuePath = "IdProd";
 
+                // Remplissage des champs à partir de la première ligne de facture
                 var ligne = facture.Lignes.FirstOrDefault();
                 if (ligne != null)
                 {
@@ -100,36 +99,29 @@ namespace AppCrmLourde
 
         private void BtnValider_Click(object sender, RoutedEventArgs e)
         {
-            // Vérification client
+            // --- Validations ---
             var selectedClient = ClientComboBox.SelectedItem as Client;
-            if (selectedClient == null)
-            {
-                MessageBox.Show("Veuillez sélectionner un client.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            // Vérification produit
             var selectedProduit = ProduitComboBox.SelectedItem as Produit;
-            if (selectedProduit == null)
+
+            if (selectedClient == null || selectedProduit == null)
             {
-                MessageBox.Show("Veuillez sélectionner un produit.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Veuillez sélectionner un client et un produit.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Vérification des champs numériques
             if (!int.TryParse(QteTextBox.Text, out int qte) || qte <= 0)
             {
                 MessageBox.Show("Quantité invalide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            if (!double.TryParse(PrixProdTextBox.Text, out double prixProd) || prixProd <= 0)
+            if (!decimal.TryParse(PrixProdTextBox.Text, out decimal prixProd) || prixProd <= 0)
             {
                 MessageBox.Show("Prix produit invalide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            if (!double.TryParse(PrixFactTextBox.Text, out double prixFact) || prixFact <= 0)
+            if (!decimal.TryParse(PrixFactTextBox.Text, out decimal prixFact) || prixFact <= 0)
             {
                 MessageBox.Show("Prix facture invalide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -137,13 +129,13 @@ namespace AppCrmLourde
 
             if (!DateFacturePicker.SelectedDate.HasValue)
             {
-                MessageBox.Show("Veuillez sélectionner une date de facture.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Veuillez sélectionner une date.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Mise à jour de l'objet facture en mémoire
+            // --- Mise à jour de l'objet en mémoire ---
             facture.IdCli = selectedClient.IdCli;
-            facture.PrixFact = prixFact;
+            facture.PrixFact = (double)prixFact;
             facture.DateFact = DateFacturePicker.SelectedDate.Value;
 
             var ligneModif = facture.Lignes.FirstOrDefault();
@@ -155,39 +147,51 @@ namespace AppCrmLourde
             ligneModif.IdProd = selectedProduit.IdProd;
             ligneModif.Qte = qte;
 
-            // 🔹 Mise à jour dans MySQL
+            // --- Mise à jour Base de données (Transaction) ---
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(ConnexionString))
                 {
                     conn.Open();
-                    string query = @"UPDATE factures
-                                     SET IdCli=@idCli, IdProd=@idProd, QteProd=@qte, PrixProd=@prixProd, PrixFact=@prixFact, DateFact=@dateFact
-                                     WHERE IdFact=@idFact";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@idCli", facture.IdCli);
-                    cmd.Parameters.AddWithValue("@idProd", selectedProduit.IdProd);
-                    cmd.Parameters.AddWithValue("@qte", qte);
-                    cmd.Parameters.AddWithValue("@prixProd", prixProd);
-                    cmd.Parameters.AddWithValue("@prixFact", facture.PrixFact);
-                    cmd.Parameters.AddWithValue("@dateFact", facture.DateFact);
-                    cmd.Parameters.AddWithValue("@idFact", facture.IdFact);
+                    using (MySqlTransaction trans = conn.BeginTransaction())
+                    {
+                        try
+                        {
+                            // 1. Update de la table factures
+                            string queryFact = "UPDATE factures SET IdCli=@idCli, PrixFact=@prixFact, DateFact=@dateFact WHERE IdFact=@idFact";
+                            MySqlCommand cmdFact = new MySqlCommand(queryFact, conn, trans);
+                            cmdFact.Parameters.AddWithValue("@idCli", facture.IdCli);
+                            cmdFact.Parameters.AddWithValue("@prixFact", facture.PrixFact);
+                            cmdFact.Parameters.AddWithValue("@dateFact", facture.DateFact);
+                            cmdFact.Parameters.AddWithValue("@idFact", facture.IdFact);
+                            cmdFact.ExecuteNonQuery();
 
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    if (rowsAffected > 0)
-                        Logger.Log($"Modification facture : ID {facture.IdFact}, Client {selectedClient.NomCli}, Produit {selectedProduit.NomProd}");
-                    else
-                        MessageBox.Show("Aucune modification effectuée.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                            // 2. Update de la table lignefact (détails du produit)
+                            string queryLigne = "UPDATE lignefact SET IdProd=@idProd, Qte=@qte, PUProd=@pu WHERE IdFact=@idFact";
+                            MySqlCommand cmdLigne = new MySqlCommand(queryLigne, conn, trans);
+                            cmdLigne.Parameters.AddWithValue("@idProd", selectedProduit.IdProd);
+                            cmdLigne.Parameters.AddWithValue("@qte", qte);
+                            cmdLigne.Parameters.AddWithValue("@pu", prixProd);
+                            cmdLigne.Parameters.AddWithValue("@idFact", facture.IdFact);
+                            cmdLigne.ExecuteNonQuery();
+
+                            trans.Commit();
+                            Logger.Log($"Modification facture : ID {facture.IdFact}, Client {selectedClient.NomCli}");
+                        }
+                        catch
+                        {
+                            trans.Rollback();
+                            throw;
+                        }
+                    }
                 }
+                this.DialogResult = true;
+                this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur lors de la modification de la facture : " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                MessageBox.Show("Erreur lors de la mise à jour : " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            this.DialogResult = true;
-            this.Close();
         }
 
         private void BtnAnnuler_Click(object sender, RoutedEventArgs e)

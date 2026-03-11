@@ -253,3 +253,7 @@ C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\AppCr
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\AppCrmLourde.csproj.CoreCompileInputs.cache
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\AppCrmLo.2432ECE4.Up2Date
 >>>>>>> origin/main
+C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreAjouterModifierLigne.baml
+C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreLignesFacture.baml
+C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreAjouterModifierLigne.g.cs
+C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreLignesFacture.g.cs

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using MySql.Data.MySqlClient;
 
 namespace AppCrmLourde
@@ -9,70 +8,74 @@ namespace AppCrmLourde
     public partial class FenetreAjouterFacture : Window
     {
         private const string ConnexionString = "server=localhost;database=application_crm_lourde;uid=root;pwd=root;";
+
+        // Cette propriété sera récupérée par la page précédente
         public Facture NouvelleFacture { get; private set; }
-        private List<Produit> Produits = new List<Produit>();
-    public FenetreAjouterFacture()
+
+        public FenetreAjouterFacture()
         {
             InitializeComponent();
             ChargerClients();
+            // Initialise la date par défaut sur aujourd'hui
             DateFacturePicker.SelectedDate = DateTime.Now;
         }
 
         private void ChargerClients()
         {
             var clients = new List<Client>();
-            using (var conn = new MySqlConnection(ConnexionString))
+            try
             {
-                conn.Open();
-                var cmd = new MySqlCommand("SELECT IdCli, NomCli, PrenomCli FROM clients", conn);
-                using (var reader = cmd.ExecuteReader())
+                using (var conn = new MySqlConnection(ConnexionString))
                 {
-                    while (reader.Read())
+                    conn.Open();
+                    var cmd = new MySqlCommand("SELECT IdCli, NomCli, PrenomCli FROM clients", conn);
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        clients.Add(new Client
+                        while (reader.Read())
                         {
-                            IdCli = reader.GetInt32("IdCli"),
-                            NomCli = reader.GetString("NomCli"),
-                            PrenomCli = reader.GetString("PrenomCli")
-                        });
+                            clients.Add(new Client
+                            {
+                                IdCli = reader.GetInt32("IdCli"),
+                                NomCli = reader.GetString("NomCli"),
+                                PrenomCli = reader.GetString("PrenomCli")
+                            });
+                        }
                     }
                 }
-            }
 
-            ClientComboBox.ItemsSource = clients;
-            ClientComboBox.DisplayMemberPath = "FullName";
-            ClientComboBox.SelectedValuePath = "IdCli";
-            if (clients.Count > 0) ClientComboBox.SelectedIndex = 0;
+                ClientComboBox.ItemsSource = clients;
+                // FullName doit être une propriété dans ta classe Client
+                ClientComboBox.DisplayMemberPath = "FullName";
+                ClientComboBox.SelectedValuePath = "IdCli";
+
+                if (clients.Count > 0) ClientComboBox.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors du chargement des clients : " + ex.Message);
+            }
         }
 
         private void BtnValider_Click(object sender, RoutedEventArgs e)
         {
+            // Récupération du client sélectionné
             var selectedClient = ClientComboBox.SelectedItem as Client;
             if (selectedClient == null)
             {
                 MessageBox.Show("Veuillez sélectionner un client.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            int idCli = selectedClient.IdCli;
 
+            // Création de l'objet Facture basé uniquement sur ce que contient ton XAML
             NouvelleFacture = new Facture
             {
-                IdCli = idCli,
-<<<<<<< HEAD
-                PrixFact = 0,
+                IdCli = selectedClient.IdCli,
+                NomClient = selectedClient.NomCli + " " + selectedClient.PrenomCli,
                 DateFact = DateFacturePicker.SelectedDate ?? DateTime.Now,
-                NomClient = selectedClient.NomCli + " " + selectedClient.PrenomCli
-=======
-                PrixFact = Convert.ToDouble(selectedProduit.PrixProd) * qte,
-                DateFact = DateFacturePicker.SelectedDate ?? DateTime.Now
->>>>>>> origin/main
+                PrixFact = 0, // Initialisé à 0 car pas de saisie de prix/produit ici
             };
-            NouvelleFacture.Lignes.Add(new LigneFact
-            {
-                IdProd = idProd,
-                Qte = qte
-            });
 
+            // On ferme la fenêtre en validant
             this.DialogResult = true;
             this.Close();
         }

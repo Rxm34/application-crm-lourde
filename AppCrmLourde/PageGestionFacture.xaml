@@ -10,33 +10,26 @@
     <Grid Margin="20" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Barre de recherche + bouton retour -->
-            <RowDefinition Height="550"/>
-            <!-- DataGrid -->
+            <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
-            <!-- Filtre + boutons -->
         </Grid.RowDefinitions>
 
-        <!-- BARRE HAUTE : BOUTON RETOUR + RECHERCHE -->
         <DockPanel Grid.Row="0" Margin="0,0,0,10">
-            <!-- BOUTON RETOUR EN HAUT À GAUCHE -->
             <Button Content="← Retour" Width="100" Height="35" Margin="0,0,10,0"
-                 Background="#9E9E9E" Foreground="White" FontWeight="Bold"
-                 DockPanel.Dock="Left"
-                 Click="BtnRetour_Click"/>
+                    Background="#9E9E9E" Foreground="White" FontWeight="Bold"
+                    DockPanel.Dock="Left"
+                    Click="BtnRetour_Click"/>
 
-            <!-- RECHERCHE À DROITE -->
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
                 <TextBox x:Name="txtSearch" Width="250" Height="35" Margin="0,0,10,0"
-                      Padding="10,0" VerticalContentAlignment="Center"
-                      FontSize="14"/>
+                         Padding="10,0" VerticalContentAlignment="Center"
+                         FontSize="14"/>
                 <Button Content="🔍 Rechercher" Width="130" Height="35"
-                     Background="#607D8B" Foreground="White"
-                     FontWeight="Bold" Click="BtnSearch_Click"/>
+                        Background="#607D8B" Foreground="White"
+                        FontWeight="Bold" Click="BtnSearch_Click"/>
             </StackPanel>
         </DockPanel>
 
-        <!-- Tableau Factures -->
         <DataGrid x:Name="FacturesDataGrid"
                   Grid.Row="1"
                   ItemsSource="{Binding Factures}"
@@ -44,40 +37,31 @@
                   CanUserAddRows="False"
                   Margin="0,0,0,10">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id Facture" Binding="{Binding IdFact}" Width="*"/>
-<<<<<<< HEAD
+                <DataGridTextColumn Header="Id Facture" Binding="{Binding IdFact}" Width="50"/>
                 <DataGridTextColumn Header="Client" Binding="{Binding NomClient}" Width="2*"/>
-                <DataGridTextColumn Header="Prix Total" Binding="{Binding PrixFact, StringFormat=C2}" Width="*"/>
-=======
-                <DataGridTextColumn Header="Client" Binding="{Binding NomClient}" Width="*"/>
-                <DataGridTextColumn Header="Produit" Binding="{Binding NomProduit}" Width="*"/>
+                <DataGridTextColumn Header="Produit" Binding="{Binding NomProduit}" Width="2*"/>
                 <DataGridTextColumn Header="Quantité" Binding="{Binding Lignes[0].Qte}" Width="*"/>
-                <DataGridTextColumn Header="Prix Facture" Binding="{Binding PrixFact}" Width="*"/>
->>>>>>> origin/main
-                <DataGridTextColumn Header="Date Facture" Binding="{Binding DateFact, StringFormat=dd/MM/yyyy}" Width="*"/>
+                <DataGridTextColumn Header="Prix Total" Binding="{Binding PrixFact, StringFormat={}{0:C2}}" Width="*"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding DateFact, StringFormat=dd/MM/yyyy}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- FILTRE + BOUTONS SOUS LE DATAGRID -->
         <Grid Grid.Row="2" Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            
-            
 
-            <!-- BOUTONS À DROITE -->
             <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Button Content="➕ Ajouter" Width="120" Height="35" Margin="10,0,0,0"
-                     Background="#4CAF50" Foreground="White" FontWeight="Bold"
-                     Click="BtnAjouter_Click"/>
+                        Background="#4CAF50" Foreground="White" FontWeight="Bold"
+                        Click="BtnAjouter_Click"/>
                 <Button Content="✏️ Modifier" Width="120" Height="35" Margin="10,0,0,0"
-                     Background="#2196F3" Foreground="White" FontWeight="Bold"
-                     Click="BtnModifier_Click"/>
+                        Background="#2196F3" Foreground="White" FontWeight="Bold"
+                        Click="BtnModifier_Click"/>
                 <Button Content="🗑️ Supprimer" Width="120" Height="35" Margin="10,0,0,0"
-                     Background="#F44336" Foreground="White" FontWeight="Bold"
-                     Click="BtnSupprimer_Click"/>
+                        Background="#F44336" Foreground="White" FontWeight="Bold"
+                        Click="BtnSupprimer_Click"/>
             </StackPanel>
         </Grid>
     </Grid>
