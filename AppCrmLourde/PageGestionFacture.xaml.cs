@@ -99,10 +99,9 @@ namespace AppCrmLourde
                 {
                     conn.Open();
                     string query = @"
-                        SELECT f.*, c.NomCli, c.PrenomCli, p.NomProd, p.PrixProd
+                        SELECT f.*, c.NomCli, c.PrenomCli
                         FROM factures f
-                        JOIN clients c ON f.IdCli = c.IdCli
-                        JOIN produits p ON f.IdProd = p.IdProd";
+                        JOIN clients c ON f.IdCli = c.IdCli";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
@@ -112,10 +111,6 @@ namespace AppCrmLourde
                             IdFact = reader.GetInt32("IdFact"),
                             IdCli = reader.GetInt32("IdCli"),
                             NomClient = reader.GetString("NomCli") + " " + reader.GetString("PrenomCli"),
-                            IdProd = reader.GetInt32("IdProd"),
-                            NomProduit = reader.GetString("NomProd"),
-                            QteProd = reader.GetInt32("QteProd"),
-                            PrixProd = reader.GetDouble("PrixProd"),
                             PrixFact = reader.GetDouble("PrixFact"),
                             DateFact = reader.GetDateTime("DateFact")
                         };
@@ -134,24 +129,18 @@ namespace AppCrmLourde
             if (fenetre.ShowDialog() == true && fenetre.NouvelleFacture != null)
             {
                 Facture f = fenetre.NouvelleFacture;
-                var produit = Produits.FirstOrDefault(p => p.IdProd == f.IdProd);
                 var client = Clients.FirstOrDefault(c => c.IdCli == f.IdCli);
-                if (produit != null) { f.PrixProd = (double)produit.PrixProd; f.PrixFact = f.QteProd * f.PrixProd; }
                 if (client != null) f.NomClient = client.NomCli + " " + client.PrenomCli;
-                if (produit != null) f.NomProduit = produit.NomProd;
 
                 try
                 {
                     using (MySqlConnection conn = new MySqlConnection(connectionString))
                     {
                         conn.Open();
-                        string query = @"INSERT INTO factures (IdCli, IdProd, QteProd, PrixProd, PrixFact, DateFact)
-                                         VALUES (@cli, @prod, @qte, @prix, @prixfact, @date)";
+                        string query = @"INSERT INTO factures (IdCli, PrixFact, DateFact)
+                                         VALUES (@cli, @prixfact, @date)";
                         MySqlCommand cmd = new MySqlCommand(query, conn);
                         cmd.Parameters.AddWithValue("@cli", f.IdCli);
-                        cmd.Parameters.AddWithValue("@prod", f.IdProd);
-                        cmd.Parameters.AddWithValue("@qte", f.QteProd);
-                        cmd.Parameters.AddWithValue("@prix", f.PrixProd);
                         cmd.Parameters.AddWithValue("@prixfact", f.PrixFact);
                         cmd.Parameters.AddWithValue("@date", f.DateFact);
                         cmd.ExecuteNonQuery();
@@ -161,7 +150,7 @@ namespace AppCrmLourde
                     Factures.Add(f);
                     allEntries.Add(f);
                     LogAction("Ajout facture",
-                        $"ID:{f.IdFact}, Client:{f.NomClient}, Produit:{f.NomProduit}, Qte:{f.QteProd}, Prix:{f.PrixFact}, Date:{f.DateFact:dd/MM/yyyy}");
+                        $"ID:{f.IdFact}, Client:{f.NomClient}, Prix:{f.PrixFact}, Date:{f.DateFact:dd/MM/yyyy}");
                 }
                 catch (Exception ex) { MessageBox.Show("Erreur ajout facture : " + ex.Message); }
             }
@@ -173,49 +162,11 @@ namespace AppCrmLourde
             Facture f = FacturesDataGrid.SelectedItem as Facture;
             if (f == null) { MessageBox.Show("Veuillez sélectionner une facture."); return; }
 
-            Facture avant = new Facture
-            {
-                IdFact = f.IdFact,
-                NomClient = f.NomClient,
-                NomProduit = f.NomProduit,
-                QteProd = f.QteProd,
-                PrixFact = f.PrixFact,
-                DateFact = f.DateFact
-            };
+            // Ouvre la nouvelle fenêtre de gestion des lignes
+            FenetreLignesFacture fenetre = new FenetreLignesFacture(f);
+            fenetre.ShowDialog();
 
-            FenetreModifierFacture fenetre = new FenetreModifierFacture(f);
-            if (fenetre.ShowDialog() == true)
-            {
-                var produit = Produits.FirstOrDefault(p => p.IdProd == f.IdProd);
-                var client = Clients.FirstOrDefault(c => c.IdCli == f.IdCli);
-                if (produit != null) { f.PrixProd = (double)produit.PrixProd; f.PrixFact = f.QteProd * f.PrixProd; f.NomProduit = produit.NomProd; }
-                if (client != null) f.NomClient = client.NomCli + " " + client.PrenomCli;
-
-                try
-                {
-                    using (MySqlConnection conn = new MySqlConnection(connectionString))
-                    {
-                        conn.Open();
-                        string query = @"UPDATE factures SET IdCli=@cli, IdProd=@prod, QteProd=@qte, PrixProd=@prix, PrixFact=@prixfact, DateFact=@date
-                                         WHERE IdFact=@id";
-                        MySqlCommand cmd = new MySqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@cli", f.IdCli);
-                        cmd.Parameters.AddWithValue("@prod", f.IdProd);
-                        cmd.Parameters.AddWithValue("@qte", f.QteProd);
-                        cmd.Parameters.AddWithValue("@prix", f.PrixProd);
-                        cmd.Parameters.AddWithValue("@prixfact", f.PrixFact);
-                        cmd.Parameters.AddWithValue("@date", f.DateFact);
-                        cmd.Parameters.AddWithValue("@id", f.IdFact);
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    FacturesDataGrid.Items.Refresh();
-                    LogAction("Modification facture",
-                        $"AVANT → ID:{avant.IdFact}, Client:{avant.NomClient}, Produit:{avant.NomProduit}, Qte:{avant.QteProd}, Prix:{avant.PrixFact}, Date:{avant.DateFact:dd/MM/yyyy}\n" +
-                        $"APRÈS → ID:{f.IdFact}, Client:{f.NomClient}, Produit:{f.NomProduit}, Qte:{f.QteProd}, Prix:{f.PrixFact}, Date:{f.DateFact:dd/MM/yyyy}");
-                }
-                catch (Exception ex) { MessageBox.Show("Erreur modification facture : " + ex.Message); }
-            }
+            FacturesDataGrid.Items.Refresh();
         }
 
         // ===================== SUPPRESSION =====================
@@ -224,23 +175,19 @@ namespace AppCrmLourde
             Facture f = FacturesDataGrid.SelectedItem as Facture;
             if (f == null) { MessageBox.Show("Veuillez sélectionner une facture."); return; }
 
-            if (MessageBox.Show($"Supprimer la facture #{f.IdFact} ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            if (MessageBox.Show($"Supprimer la facture #{f.IdFact} et toutes ses lignes ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                Facture avant = new Facture
-                {
-                    IdFact = f.IdFact,
-                    NomClient = f.NomClient,
-                    NomProduit = f.NomProduit,
-                    QteProd = f.QteProd,
-                    PrixFact = f.PrixFact,
-                    DateFact = f.DateFact
-                };
-
                 try
                 {
                     using (MySqlConnection conn = new MySqlConnection(connectionString))
                     {
                         conn.Open();
+                        // Delete related lines first (or rely on ON DELETE CASCADE in the DB)
+                        string queryLignes = "DELETE FROM lignes_facture WHERE IdFact=@id";
+                        MySqlCommand cmdLignes = new MySqlCommand(queryLignes, conn);
+                        cmdLignes.Parameters.AddWithValue("@id", f.IdFact);
+                        cmdLignes.ExecuteNonQuery();
+
                         string query = "DELETE FROM factures WHERE IdFact=@id";
                         MySqlCommand cmd = new MySqlCommand(query, conn);
                         cmd.Parameters.AddWithValue("@id", f.IdFact);
@@ -250,7 +197,7 @@ namespace AppCrmLourde
                     Factures.Remove(f);
                     allEntries.Remove(f);
                     LogAction("Suppression facture",
-                        $"ID:{avant.IdFact}, Client:{avant.NomClient}, Produit:{avant.NomProduit}, Qte:{avant.QteProd}, Prix:{avant.PrixFact}, Date:{avant.DateFact:dd/MM/yyyy}");
+                        $"ID:{f.IdFact}, Client:{f.NomClient}, Prix:{f.PrixFact}, Date:{f.DateFact:dd/MM/yyyy}");
                 }
                 catch (Exception ex) { MessageBox.Show("Erreur suppression facture : " + ex.Message); }
             }
@@ -265,8 +212,6 @@ namespace AppCrmLourde
             var resultats = allEntries.Where(f =>
                 f.IdFact.ToString().Contains(search) ||
                 (f.NomClient ?? "").ToLower().Contains(search) ||
-                (f.NomProduit ?? "").ToLower().Contains(search) ||
-                f.QteProd.ToString().Contains(search) ||
                 f.PrixFact.ToString().Contains(search) ||
                 f.DateFact.ToString("dd/MM/yyyy").Contains(search)
             ).ToList();
