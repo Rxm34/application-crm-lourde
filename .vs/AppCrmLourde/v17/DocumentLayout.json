@@ -1,34 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\",
+  "WorkspaceRootPath": "C:\\Users\\rborde\\source\\repos\\application-crm-lourde\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\appcrmlourde\\pagedashboard.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|solutionrelative:appcrmlourde\\pagedashboard.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|C:\\Users\\rborde\\source\\repos\\application-crm-lourde\\appcrmlourde\\fenetreajoutermodifier.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|solutionrelative:appcrmlourde\\fenetreajoutermodifier.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\appcrmlourde\\pagedashboard.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|solutionrelative:appcrmlourde\\pagedashboard.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|c:\\users\\rborde\\source\\repos\\application-crm-lourde\\appcrmlourde\\pageprospectsclients.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|solutionrelative:appcrmlourde\\pageprospectsclients.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\appcrmlourde\\pagegestionproduit.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|solutionrelative:appcrmlourde\\pagegestionproduit.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\appcrmlourde\\fenetremodifierproduit.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|solutionrelative:appcrmlourde\\fenetremodifierproduit.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|c:\\users\\rborde\\source\\repos\\appcrmlourde\\appcrmlourde\\pagegestionproduit.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|solutionrelative:appcrmlourde\\pagegestionproduit.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\appcrmlourde\\fenetremodifierfacture.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|solutionrelative:appcrmlourde\\fenetremodifierfacture.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\appcrmlourde\\fenetreajouterproduit.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|solutionrelative:appcrmlourde\\fenetreajouterproduit.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|C:\\Users\\rborde\\source\\repos\\application-crm-lourde\\appcrmlourde\\pageprospectsclients.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{5D8FB353-1DF5-437C-8CA9-157DBED2A6C0}|AppCrmLourde\\AppCrmLourde.csproj|solutionrelative:appcrmlourde\\pageprospectsclients.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,93 +22,48 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "FenetreModifierProduit.xaml",
-              "DocumentMoniker": "C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\AppCrmLourde\\FenetreModifierProduit.xaml",
-              "RelativeDocumentMoniker": "AppCrmLourde\\FenetreModifierProduit.xaml",
-              "ToolTip": "C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\AppCrmLourde\\FenetreModifierProduit.xaml",
-              "RelativeToolTip": "AppCrmLourde\\FenetreModifierProduit.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-17T13:23:34.377Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PageGestionProduit.xaml",
-              "DocumentMoniker": "C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\AppCrmLourde\\PageGestionProduit.xaml",
-              "RelativeDocumentMoniker": "AppCrmLourde\\PageGestionProduit.xaml",
-              "ToolTip": "C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\AppCrmLourde\\PageGestionProduit.xaml",
-              "RelativeToolTip": "AppCrmLourde\\PageGestionProduit.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-17T13:23:07.304Z",
+              "DocumentIndex": 0,
+              "Title": "FenetreAjouterModifier.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\rborde\\source\\repos\\application-crm-lourde\\AppCrmLourde\\FenetreAjouterModifier.xaml.cs",
+              "RelativeDocumentMoniker": "AppCrmLourde\\FenetreAjouterModifier.xaml.cs",
+              "ToolTip": "C:\\Users\\rborde\\source\\repos\\application-crm-lourde\\AppCrmLourde\\FenetreAjouterModifier.xaml.cs",
+              "RelativeToolTip": "AppCrmLourde\\FenetreAjouterModifier.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T15:00:44.832Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "PageDashboard.xaml",
-              "DocumentMoniker": "C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\AppCrmLourde\\PageDashboard.xaml",
-              "RelativeDocumentMoniker": "AppCrmLourde\\PageDashboard.xaml",
-              "ToolTip": "C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\AppCrmLourde\\PageDashboard.xaml",
-              "RelativeToolTip": "AppCrmLourde\\PageDashboard.xaml",
+              "Title": "PageProspectsClients.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\rborde\\source\\repos\\application-crm-lourde\\AppCrmLourde\\PageProspectsClients.xaml.cs",
+              "RelativeDocumentMoniker": "AppCrmLourde\\PageProspectsClients.xaml.cs",
+              "ToolTip": "C:\\Users\\rborde\\source\\repos\\application-crm-lourde\\AppCrmLourde\\PageProspectsClients.xaml.cs",
+              "RelativeToolTip": "AppCrmLourde\\PageProspectsClients.xaml.cs",
+              "ViewState": "AgIAAMgAAAAAAAAAAAAcwEIBAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T14:58:23.007Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PageProspectsClients.xaml",
+              "DocumentMoniker": "C:\\Users\\rborde\\source\\repos\\application-crm-lourde\\AppCrmLourde\\PageProspectsClients.xaml",
+              "RelativeDocumentMoniker": "AppCrmLourde\\PageProspectsClients.xaml",
+              "ToolTip": "C:\\Users\\rborde\\source\\repos\\application-crm-lourde\\AppCrmLourde\\PageProspectsClients.xaml",
+              "RelativeToolTip": "AppCrmLourde\\PageProspectsClients.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-16T10:34:06.444Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PageDashboard.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\AppCrmLourde\\PageDashboard.xaml.cs",
-              "RelativeDocumentMoniker": "AppCrmLourde\\PageDashboard.xaml.cs",
-              "ToolTip": "C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\AppCrmLourde\\PageDashboard.xaml.cs",
-              "RelativeToolTip": "AppCrmLourde\\PageDashboard.xaml.cs",
-              "ViewState": "AgIAAAcBAAAAAAAAAAAuwBwBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T10:31:44.27Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "FenetreModifierFacture.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\AppCrmLourde\\FenetreModifierFacture.xaml.cs",
-              "RelativeDocumentMoniker": "AppCrmLourde\\FenetreModifierFacture.xaml.cs",
-              "ToolTip": "C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\AppCrmLourde\\FenetreModifierFacture.xaml.cs",
-              "RelativeToolTip": "AppCrmLourde\\FenetreModifierFacture.xaml.cs",
-              "ViewState": "AgIAAFwAAAAAAAAAAAAIwJYAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T10:25:51.711Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PageGestionProduit.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\AppCrmLourde\\PageGestionProduit.xaml.cs",
-              "RelativeDocumentMoniker": "AppCrmLourde\\PageGestionProduit.xaml.cs",
-              "ToolTip": "C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\AppCrmLourde\\PageGestionProduit.xaml.cs",
-              "RelativeToolTip": "AppCrmLourde\\PageGestionProduit.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T10:21:30.195Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "FenetreAjouterProduit.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\AppCrmLourde\\FenetreAjouterProduit.xaml.cs",
-              "RelativeDocumentMoniker": "AppCrmLourde\\FenetreAjouterProduit.xaml.cs",
-              "ToolTip": "C:\\Users\\rborde\\source\\repos\\AppCrmLourde\\AppCrmLourde\\FenetreAjouterProduit.xaml.cs",
-              "RelativeToolTip": "AppCrmLourde\\FenetreAjouterProduit.xaml.cs",
-              "ViewState": "AgIAADQAAAAAAAAAAAAiwFsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T10:18:35.4Z"
+              "WhenOpened": "2026-03-04T14:58:18.394Z"
             }
           ]
         }

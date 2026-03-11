@@ -31,10 +31,16 @@ namespace AppCrmLourde
                 personne = obj;
                 estModification = true;
 
-                if (obj is Client) cbType.SelectedIndex = 0;
-                else if (obj is Prospect) cbType.SelectedIndex = 1;
-
-                cbType.IsEnabled = false;
+                if (obj is Client)
+                {
+                    cbType.SelectedIndex = 0;
+                    cbType.IsEnabled = false;
+                }
+                else if (obj is Prospect)
+                {
+                    cbType.SelectedIndex = 1;
+                    cbType.IsEnabled = true; // Prospect can become a Client
+                }
             }
             else
             {
@@ -101,7 +107,10 @@ namespace AppCrmLourde
             // Mettre à jour l'objet interne
             if (TypeChoisi == "Client")
             {
-                if (personne == null) personne = new Client();
+                // If it was a prospect, we create a new client
+                if (personne == null || personne is Prospect)
+                    personne = new Client();
+
                 var c = personne as Client;
                 c.NomCli = Nom;
                 c.PrenomCli = Prenom;

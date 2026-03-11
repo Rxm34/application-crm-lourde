@@ -2,8 +2,4 @@
 # Ce fichier .gitignore a été automatiquement créé par Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/AppCrmLourde/CopilotIndices/17.14.1518.61961/CodeChunks.db
-*.db-shm
-*.db-wal
-/.vs/AppCrmLourde/CopilotIndices/17.14.1518.61961/SemanticSymbols.db
 *.vsidx
