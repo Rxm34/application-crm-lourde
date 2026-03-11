@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\rborde\source\repos\AppCrmLourde\AppCrmLourde\obj\Debug\
+C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\
 AppCrmLourde
 none
 false
 DEBUG;TRACE
-C:\Users\rborde\source\repos\AppCrmLourde\AppCrmLourde\App.xaml
+C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\App.xaml
 142057933153
 
-261164006055
-57-830126844
+27562503686
+571669343062
 FenetreAjouterFacture.xaml;FenetreAjouterModifier.xaml;FenetreAjouterProduit.xaml;FenetreAjouterRendezVous.xaml;FenetreModifierFacture.xaml;FenetreModifierProduit.xaml;MainWindow.xaml;PageAccueil.xaml;PageDashboard.xaml;PageGestionFacture.xaml;PageGestionProduit.xaml;PageInscription.xaml;PageProspectsClients.xaml;PageRendezVous.xaml;
 
 False
