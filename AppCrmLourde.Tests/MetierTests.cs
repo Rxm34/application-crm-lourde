@@ -14,8 +14,8 @@ namespace AppCrmLourde.Tests
         {
             var factures = new List<Facture>
             {
-                new Facture { QteProd = 2, PrixFact = 100 },
-                new Facture { QteProd = 1, PrixFact = 50 }
+                new Facture { PrixFact = 100 },
+                new Facture { PrixFact = 50 }
             };
 
             double total = factures.Sum(f => f.PrixFact);
@@ -59,19 +59,21 @@ namespace AppCrmLourde.Tests
         {
             var factures = new List<Facture>
             {
-                new Facture { QteProd = 3 },
-                new Facture { QteProd = 5 }
+                new Facture { Lignes = new List<LigneFact> { new LigneFact { Qte = 3 } } },
+                new Facture { Lignes = new List<LigneFact> { new LigneFact { Qte = 5 } } }
             };
 
-            int totalQte = factures.Sum(f => f.QteProd);
+            int totalQte = factures.Sum(f => f.Lignes.Sum(l => l.Qte));
             Assert.AreEqual(8, totalQte);
         }
 
         [TestMethod]
         public void CalculMarge_Correct()
         {
-            var facture = new Facture { QteProd = 5, PrixFact = 100, PrixProd = 12 };
-            double marge = facture.PrixFact - (facture.PrixProd * facture.QteProd); // 100 - 60 = 40
+            var facture = new Facture { PrixFact = 100 };
+            facture.Lignes.Add(new LigneFact { Qte = 5 });
+            double prixProd = 12;
+            double marge = facture.PrixFact - (prixProd * facture.Lignes[0].Qte); // 100 - 60 = 40
             Assert.AreEqual(40, marge);
         }
 
@@ -245,8 +247,10 @@ namespace AppCrmLourde.Tests
         [TestMethod]
         public void FactureQuantiteZero_Correct()
         {
-            var facture = new Facture { QteProd = 0, PrixFact = 100, PrixProd = 50 };
-            double marge = facture.PrixFact - (facture.PrixProd * facture.QteProd);
+            var facture = new Facture { PrixFact = 100 };
+            facture.Lignes.Add(new LigneFact { Qte = 0 });
+            double prixProd = 50;
+            double marge = facture.PrixFact - (prixProd * facture.Lignes[0].Qte);
             Assert.AreEqual(100, marge);
         }
 

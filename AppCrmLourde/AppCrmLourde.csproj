@@ -173,6 +173,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Client.cs" />
+    <Compile Include="LigneFact.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="Facture.cs" />
     <Compile Include="FenetreAjouterFacture.xaml.cs">

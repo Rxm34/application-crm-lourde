@@ -47,8 +47,7 @@
                 <DataGridTextColumn Header="Id Facture" Binding="{Binding IdFact}" Width="*"/>
                 <DataGridTextColumn Header="Client" Binding="{Binding NomClient}" Width="*"/>
                 <DataGridTextColumn Header="Produit" Binding="{Binding NomProduit}" Width="*"/>
-                <DataGridTextColumn Header="Quantité" Binding="{Binding QteProd}" Width="*"/>
-                <DataGridTextColumn Header="Prix Produit" Binding="{Binding PrixProd}" Width="*"/>
+                <DataGridTextColumn Header="Quantité" Binding="{Binding Lignes[0].Qte}" Width="*"/>
                 <DataGridTextColumn Header="Prix Facture" Binding="{Binding PrixFact}" Width="*"/>
                 <DataGridTextColumn Header="Date Facture" Binding="{Binding DateFact, StringFormat=dd/MM/yyyy}" Width="*"/>
             </DataGrid.Columns>
