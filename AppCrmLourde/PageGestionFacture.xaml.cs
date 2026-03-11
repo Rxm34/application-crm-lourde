@@ -112,13 +112,16 @@ namespace AppCrmLourde
                             IdFact = reader.GetInt32("IdFact"),
                             IdCli = reader.GetInt32("IdCli"),
                             NomClient = reader.GetString("NomCli") + " " + reader.GetString("PrenomCli"),
-                            IdProd = reader.GetInt32("IdProd"),
                             NomProduit = reader.GetString("NomProd"),
-                            QteProd = reader.GetInt32("QteProd"),
-                            PrixProd = reader.GetDouble("PrixProd"),
                             PrixFact = reader.GetDouble("PrixFact"),
                             DateFact = reader.GetDateTime("DateFact")
                         };
+                        f.Lignes.Add(new LigneFact
+                        {
+                            IdFact = f.IdFact,
+                            IdProd = reader.GetInt32("IdProd"),
+                            Qte = reader.GetInt32("QteProd")
+                        });
                         Factures.Add(f);
                         allEntries.Add(f);
                     }
@@ -134,11 +137,8 @@ namespace AppCrmLourde
             if (fenetre.ShowDialog() == true && fenetre.NouvelleFacture != null)
             {
                 Facture f = fenetre.NouvelleFacture;
-                var produit = Produits.FirstOrDefault(p => p.IdProd == f.IdProd);
                 var client = Clients.FirstOrDefault(c => c.IdCli == f.IdCli);
-                if (produit != null) { f.PrixProd = (double)produit.PrixProd; f.PrixFact = f.QteProd * f.PrixProd; }
                 if (client != null) f.NomClient = client.NomCli + " " + client.PrenomCli;
-                if (produit != null) f.NomProduit = produit.NomProd;
 
                 try
                 {
@@ -149,19 +149,34 @@ namespace AppCrmLourde
                                          VALUES (@cli, @prod, @qte, @prix, @prixfact, @date)";
                         MySqlCommand cmd = new MySqlCommand(query, conn);
                         cmd.Parameters.AddWithValue("@cli", f.IdCli);
-                        cmd.Parameters.AddWithValue("@prod", f.IdProd);
-                        cmd.Parameters.AddWithValue("@qte", f.QteProd);
-                        cmd.Parameters.AddWithValue("@prix", f.PrixProd);
+
+                        var ligne = f.Lignes.FirstOrDefault();
+                        if (ligne != null)
+                        {
+                            var produit = Produits.FirstOrDefault(p => p.IdProd == ligne.IdProd);
+                            cmd.Parameters.AddWithValue("@prod", ligne.IdProd);
+                            cmd.Parameters.AddWithValue("@qte", ligne.Qte);
+                            cmd.Parameters.AddWithValue("@prix", produit != null ? (double)produit.PrixProd : 0);
+                            if (produit != null) f.NomProduit = produit.NomProd;
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@prod", 0);
+                            cmd.Parameters.AddWithValue("@qte", 0);
+                            cmd.Parameters.AddWithValue("@prix", 0);
+                        }
+
                         cmd.Parameters.AddWithValue("@prixfact", f.PrixFact);
                         cmd.Parameters.AddWithValue("@date", f.DateFact);
                         cmd.ExecuteNonQuery();
                         f.IdFact = (int)cmd.LastInsertedId;
+                        if (ligne != null) ligne.IdFact = f.IdFact;
                     }
 
                     Factures.Add(f);
                     allEntries.Add(f);
                     LogAction("Ajout facture",
-                        $"ID:{f.IdFact}, Client:{f.NomClient}, Produit:{f.NomProduit}, Qte:{f.QteProd}, Prix:{f.PrixFact}, Date:{f.DateFact:dd/MM/yyyy}");
+                        $"ID:{f.IdFact}, Client:{f.NomClient}, Prix:{f.PrixFact}, Date:{f.DateFact:dd/MM/yyyy}");
                 }
                 catch (Exception ex) { MessageBox.Show("Erreur ajout facture : " + ex.Message); }
             }
@@ -178,7 +193,6 @@ namespace AppCrmLourde
                 IdFact = f.IdFact,
                 NomClient = f.NomClient,
                 NomProduit = f.NomProduit,
-                QteProd = f.QteProd,
                 PrixFact = f.PrixFact,
                 DateFact = f.DateFact
             };
@@ -186,9 +200,7 @@ namespace AppCrmLourde
             FenetreModifierFacture fenetre = new FenetreModifierFacture(f);
             if (fenetre.ShowDialog() == true)
             {
-                var produit = Produits.FirstOrDefault(p => p.IdProd == f.IdProd);
                 var client = Clients.FirstOrDefault(c => c.IdCli == f.IdCli);
-                if (produit != null) { f.PrixProd = (double)produit.PrixProd; f.PrixFact = f.QteProd * f.PrixProd; f.NomProduit = produit.NomProd; }
                 if (client != null) f.NomClient = client.NomCli + " " + client.PrenomCli;
 
                 try
@@ -200,9 +212,23 @@ namespace AppCrmLourde
                                          WHERE IdFact=@id";
                         MySqlCommand cmd = new MySqlCommand(query, conn);
                         cmd.Parameters.AddWithValue("@cli", f.IdCli);
-                        cmd.Parameters.AddWithValue("@prod", f.IdProd);
-                        cmd.Parameters.AddWithValue("@qte", f.QteProd);
-                        cmd.Parameters.AddWithValue("@prix", f.PrixProd);
+
+                        var ligne = f.Lignes.FirstOrDefault();
+                        if (ligne != null)
+                        {
+                            var produit = Produits.FirstOrDefault(p => p.IdProd == ligne.IdProd);
+                            cmd.Parameters.AddWithValue("@prod", ligne.IdProd);
+                            cmd.Parameters.AddWithValue("@qte", ligne.Qte);
+                            cmd.Parameters.AddWithValue("@prix", produit != null ? (double)produit.PrixProd : 0);
+                            if (produit != null) f.NomProduit = produit.NomProd;
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@prod", 0);
+                            cmd.Parameters.AddWithValue("@qte", 0);
+                            cmd.Parameters.AddWithValue("@prix", 0);
+                        }
+
                         cmd.Parameters.AddWithValue("@prixfact", f.PrixFact);
                         cmd.Parameters.AddWithValue("@date", f.DateFact);
                         cmd.Parameters.AddWithValue("@id", f.IdFact);
@@ -211,8 +237,8 @@ namespace AppCrmLourde
 
                     FacturesDataGrid.Items.Refresh();
                     LogAction("Modification facture",
-                        $"AVANT → ID:{avant.IdFact}, Client:{avant.NomClient}, Produit:{avant.NomProduit}, Qte:{avant.QteProd}, Prix:{avant.PrixFact}, Date:{avant.DateFact:dd/MM/yyyy}\n" +
-                        $"APRÈS → ID:{f.IdFact}, Client:{f.NomClient}, Produit:{f.NomProduit}, Qte:{f.QteProd}, Prix:{f.PrixFact}, Date:{f.DateFact:dd/MM/yyyy}");
+                        $"AVANT → ID:{avant.IdFact}, Client:{avant.NomClient}, Prix:{avant.PrixFact}, Date:{avant.DateFact:dd/MM/yyyy}\n" +
+                        $"APRÈS → ID:{f.IdFact}, Client:{f.NomClient}, Prix:{f.PrixFact}, Date:{f.DateFact:dd/MM/yyyy}");
                 }
                 catch (Exception ex) { MessageBox.Show("Erreur modification facture : " + ex.Message); }
             }
@@ -231,7 +257,6 @@ namespace AppCrmLourde
                     IdFact = f.IdFact,
                     NomClient = f.NomClient,
                     NomProduit = f.NomProduit,
-                    QteProd = f.QteProd,
                     PrixFact = f.PrixFact,
                     DateFact = f.DateFact
                 };
@@ -250,7 +275,7 @@ namespace AppCrmLourde
                     Factures.Remove(f);
                     allEntries.Remove(f);
                     LogAction("Suppression facture",
-                        $"ID:{avant.IdFact}, Client:{avant.NomClient}, Produit:{avant.NomProduit}, Qte:{avant.QteProd}, Prix:{avant.PrixFact}, Date:{avant.DateFact:dd/MM/yyyy}");
+                        $"ID:{avant.IdFact}, Client:{avant.NomClient}, Prix:{avant.PrixFact}, Date:{avant.DateFact:dd/MM/yyyy}");
                 }
                 catch (Exception ex) { MessageBox.Show("Erreur suppression facture : " + ex.Message); }
             }
@@ -266,7 +291,6 @@ namespace AppCrmLourde
                 f.IdFact.ToString().Contains(search) ||
                 (f.NomClient ?? "").ToLower().Contains(search) ||
                 (f.NomProduit ?? "").ToLower().Contains(search) ||
-                f.QteProd.ToString().Contains(search) ||
                 f.PrixFact.ToString().Contains(search) ||
                 f.DateFact.ToString("dd/MM/yyyy").Contains(search)
             ).ToList();

@@ -59,7 +59,7 @@ namespace AppCrmLourde
             int rdvMois = allContacts.Count(c => c.DateRdv.Month == DateTime.Now.Month && c.DateRdv.Year == DateTime.Now.Year);
             lblRdvMois.Text = rdvMois.ToString();
 
-            int prodVendus = allFactures.Sum(f => f.QteProd);
+            int prodVendus = allFactures.Sum(f => f.Lignes.Sum(l => l.Qte));
             lblProduitsVendus.Text = prodVendus.ToString();
 
             var topClient = allFactures
@@ -158,13 +158,16 @@ namespace AppCrmLourde
                             IdFact = reader.GetInt32("IdFact"),
                             IdCli = reader.GetInt32("IdCli"),
                             NomClient = reader.GetString("NomCli") + " " + reader.GetString("PrenomCli"),
-                            IdProd = reader.GetInt32("IdProd"),
                             NomProduit = reader.GetString("NomProd"),
-                            QteProd = reader.GetInt32("QteProd"),
-                            PrixProd = reader.GetDouble("PrixProd"),
                             PrixFact = reader.GetDouble("PrixFact"),
                             DateFact = reader.GetDateTime("DateFact")
                         };
+                        f.Lignes.Add(new LigneFact
+                        {
+                            IdFact = f.IdFact,
+                            IdProd = reader.GetInt32("IdProd"),
+                            Qte = reader.GetInt32("QteProd")
+                        });
                         allFactures.Add(f);
                     }
                 }

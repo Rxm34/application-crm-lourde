@@ -76,10 +76,16 @@ namespace AppCrmLourde
                 ProduitComboBox.ItemsSource = Produits;
                 ProduitComboBox.DisplayMemberPath = "NomProd";
                 ProduitComboBox.SelectedValuePath = "IdProd";
-                ProduitComboBox.SelectedValue = facture.IdProd;
 
-                QteTextBox.Text = facture.QteProd.ToString();
-                PrixProdTextBox.Text = facture.PrixProd.ToString();
+                var ligne = facture.Lignes.FirstOrDefault();
+                if (ligne != null)
+                {
+                    ProduitComboBox.SelectedValue = ligne.IdProd;
+                    QteTextBox.Text = ligne.Qte.ToString();
+                    var produit = Produits.FirstOrDefault(p => p.IdProd == ligne.IdProd);
+                    if (produit != null) PrixProdTextBox.Text = produit.PrixProd.ToString();
+                }
+
                 PrixFactTextBox.Text = facture.PrixFact.ToString();
                 DateFacturePicker.SelectedDate = facture.DateFact;
             }
@@ -136,11 +142,17 @@ namespace AppCrmLourde
 
             // Mise à jour de l'objet facture en mémoire
             facture.IdCli = selectedClient.IdCli;
-            facture.IdProd = selectedProduit.IdProd;
-            facture.QteProd = qte;
-            facture.PrixProd = prixProd;
             facture.PrixFact = prixFact;
             facture.DateFact = DateFacturePicker.SelectedDate.Value;
+
+            var ligneModif = facture.Lignes.FirstOrDefault();
+            if (ligneModif == null)
+            {
+                ligneModif = new LigneFact { IdFact = facture.IdFact };
+                facture.Lignes.Add(ligneModif);
+            }
+            ligneModif.IdProd = selectedProduit.IdProd;
+            ligneModif.Qte = qte;
 
             // 🔹 Mise à jour dans MySQL
             try
@@ -153,9 +165,9 @@ namespace AppCrmLourde
                                      WHERE IdFact=@idFact";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@idCli", facture.IdCli);
-                    cmd.Parameters.AddWithValue("@idProd", facture.IdProd);
-                    cmd.Parameters.AddWithValue("@qte", facture.QteProd);
-                    cmd.Parameters.AddWithValue("@prixProd", facture.PrixProd);
+                    cmd.Parameters.AddWithValue("@idProd", selectedProduit.IdProd);
+                    cmd.Parameters.AddWithValue("@qte", qte);
+                    cmd.Parameters.AddWithValue("@prixProd", prixProd);
                     cmd.Parameters.AddWithValue("@prixFact", facture.PrixFact);
                     cmd.Parameters.AddWithValue("@dateFact", facture.DateFact);
                     cmd.Parameters.AddWithValue("@idFact", facture.IdFact);

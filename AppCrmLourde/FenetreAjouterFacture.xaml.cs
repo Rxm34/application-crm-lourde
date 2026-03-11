@@ -143,12 +143,14 @@ namespace AppCrmLourde
             NouvelleFacture = new Facture
             {
                 IdCli = idCli,
-                IdProd = idProd,
-                QteProd = qte,
-                PrixProd = Convert.ToDouble(selectedProduit.PrixProd),
                 PrixFact = Convert.ToDouble(selectedProduit.PrixProd) * qte,
                 DateFact = DateFacturePicker.SelectedDate ?? DateTime.Now
             };
+            NouvelleFacture.Lignes.Add(new LigneFact
+            {
+                IdProd = idProd,
+                Qte = qte
+            });
 
             this.DialogResult = true;
             this.Close();
