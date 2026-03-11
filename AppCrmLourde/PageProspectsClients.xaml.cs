@@ -258,23 +258,74 @@ namespace AppCrmLourde
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = selected.Type == "Client"
-                        ? "UPDATE clients SET NomCli=@Nom, PrenomCli=@Prenom, MailCli=@Mail, TelCli=@Tel, VilleCli=@Ville, CPCli=@CP, RueCli=@Rue WHERE IdCli=@Id"
-                        : "UPDATE prospects SET NomProsp=@Nom, PrenomProsp=@Prenom, MailProsp=@Mail, TelProsp=@Tel, VilleProsp=@Ville, CPProsp=@CP, RueProsp=@Rue WHERE IdProsp=@Id";
 
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@Nom", GetNom(modifie));
-                    cmd.Parameters.AddWithValue("@Prenom", GetPrenom(modifie));
-                    cmd.Parameters.AddWithValue("@Mail", GetMail(modifie));
-                    cmd.Parameters.AddWithValue("@Tel", GetTel(modifie));
-                    cmd.Parameters.AddWithValue("@Ville", GetVille(modifie));
-                    cmd.Parameters.AddWithValue("@CP", GetCP(modifie));
-                    cmd.Parameters.AddWithValue("@Rue", GetRue(modifie));
-                    cmd.Parameters.AddWithValue("@Id", selected.Id);
-                    cmd.ExecuteNonQuery();
+                    if (selected.Type == "Prospect" && modifie is Client)
+                    {
+                        // CONVERSION DU PROSPECT EN CLIENT
+                        using (MySqlTransaction tr = conn.BeginTransaction())
+                        {
+                            try
+                            {
+                                // 1. Insérer dans clients
+                                string insertClientQuery = "INSERT INTO clients (NomCli, PrenomCli, MailCli, TelCli, VilleCli, CPCli, RueCli) VALUES (@Nom, @Prenom, @Mail, @Tel, @Ville, @CP, @Rue)";
+                                MySqlCommand insertCmd = new MySqlCommand(insertClientQuery, conn, tr);
+                                insertCmd.Parameters.AddWithValue("@Nom", GetNom(modifie));
+                                insertCmd.Parameters.AddWithValue("@Prenom", GetPrenom(modifie));
+                                insertCmd.Parameters.AddWithValue("@Mail", GetMail(modifie));
+                                insertCmd.Parameters.AddWithValue("@Tel", GetTel(modifie));
+                                insertCmd.Parameters.AddWithValue("@Ville", GetVille(modifie));
+                                insertCmd.Parameters.AddWithValue("@CP", GetCP(modifie));
+                                insertCmd.Parameters.AddWithValue("@Rue", GetRue(modifie));
+                                insertCmd.ExecuteNonQuery();
+
+                                long newClientId = insertCmd.LastInsertedId;
+
+                                // 2. Mettre à jour les contacts liés
+                                string updateContactsQuery = "UPDATE contacts SET IdCli=@NewIdCli, IdProsp=NULL WHERE IdProsp=@OldIdProsp";
+                                MySqlCommand updateContactsCmd = new MySqlCommand(updateContactsQuery, conn, tr);
+                                updateContactsCmd.Parameters.AddWithValue("@NewIdCli", newClientId);
+                                updateContactsCmd.Parameters.AddWithValue("@OldIdProsp", selected.Id);
+                                updateContactsCmd.ExecuteNonQuery();
+
+                                // 3. Supprimer le prospect
+                                string deleteProspectQuery = "DELETE FROM prospects WHERE IdProsp=@OldIdProsp";
+                                MySqlCommand deleteCmd = new MySqlCommand(deleteProspectQuery, conn, tr);
+                                deleteCmd.Parameters.AddWithValue("@OldIdProsp", selected.Id);
+                                deleteCmd.ExecuteNonQuery();
+
+                                tr.Commit();
+                                LogAction("Conversion", $"Prospect ID:{selected.Id} converti en Client ID:{newClientId}");
+                            }
+                            catch (Exception ex)
+                            {
+                                tr.Rollback();
+                                MessageBox.Show("Erreur lors de la conversion : " + ex.Message);
+                                return;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // MODIFICATION CLASSIQUE
+                        string query = selected.Type == "Client"
+                            ? "UPDATE clients SET NomCli=@Nom, PrenomCli=@Prenom, MailCli=@Mail, TelCli=@Tel, VilleCli=@Ville, CPCli=@CP, RueCli=@Rue WHERE IdCli=@Id"
+                            : "UPDATE prospects SET NomProsp=@Nom, PrenomProsp=@Prenom, MailProsp=@Mail, TelProsp=@Tel, VilleProsp=@Ville, CPProsp=@CP, RueProsp=@Rue WHERE IdProsp=@Id";
+
+                        MySqlCommand cmd = new MySqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@Nom", GetNom(modifie));
+                        cmd.Parameters.AddWithValue("@Prenom", GetPrenom(modifie));
+                        cmd.Parameters.AddWithValue("@Mail", GetMail(modifie));
+                        cmd.Parameters.AddWithValue("@Tel", GetTel(modifie));
+                        cmd.Parameters.AddWithValue("@Ville", GetVille(modifie));
+                        cmd.Parameters.AddWithValue("@CP", GetCP(modifie));
+                        cmd.Parameters.AddWithValue("@Rue", GetRue(modifie));
+                        cmd.Parameters.AddWithValue("@Id", selected.Id);
+                        cmd.ExecuteNonQuery();
+
+                        LogAction("Modification", $"{selected.Type} ID:{selected.Id} modifié");
+                    }
                 }
 
-                LogAction("Modification", $"{selected.Type} ID:{selected.Id} modifié");
                 ChargerDonnees();
             }
         }
