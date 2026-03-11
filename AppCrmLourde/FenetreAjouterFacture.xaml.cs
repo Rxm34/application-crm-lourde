@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,8 +10,8 @@ namespace AppCrmLourde
     {
         private const string ConnexionString = "server=localhost;database=application_crm_lourde;uid=root;pwd=root;";
         public Facture NouvelleFacture { get; private set; }
-        private List<Produit> Produits = new List<Produit>();
-    public FenetreAjouterFacture()
+
+        public FenetreAjouterFacture()
         {
             InitializeComponent();
             ChargerClients();
@@ -58,20 +58,10 @@ namespace AppCrmLourde
             NouvelleFacture = new Facture
             {
                 IdCli = idCli,
-<<<<<<< HEAD
                 PrixFact = 0,
                 DateFact = DateFacturePicker.SelectedDate ?? DateTime.Now,
                 NomClient = selectedClient.NomCli + " " + selectedClient.PrenomCli
-=======
-                PrixFact = Convert.ToDouble(selectedProduit.PrixProd) * qte,
-                DateFact = DateFacturePicker.SelectedDate ?? DateTime.Now
->>>>>>> origin/main
             };
-            NouvelleFacture.Lignes.Add(new LigneFact
-            {
-                IdProd = idProd,
-                Qte = qte
-            });
 
             this.DialogResult = true;
             this.Close();
