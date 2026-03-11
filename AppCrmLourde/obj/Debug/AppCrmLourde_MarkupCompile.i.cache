@@ -10,11 +10,19 @@ none
 false
 DEBUG;TRACE
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\App.xaml
+<<<<<<< HEAD
+161503977983
+
+302095129336
+571669343062
+FenetreAjouterFacture.xaml;FenetreAjouterModifierLigne.xaml;FenetreLignesFacture.xaml;FenetreAjouterModifier.xaml;FenetreAjouterProduit.xaml;FenetreAjouterRendezVous.xaml;FenetreModifierFacture.xaml;FenetreModifierProduit.xaml;MainWindow.xaml;PageAccueil.xaml;PageDashboard.xaml;PageGestionFacture.xaml;PageGestionProduit.xaml;PageInscription.xaml;PageProspectsClients.xaml;PageRendezVous.xaml;
+=======
 142057933153
 
 28-1519584932
 571669343062
 FenetreAjouterFacture.xaml;FenetreAjouterModifier.xaml;FenetreAjouterProduit.xaml;FenetreAjouterRendezVous.xaml;FenetreModifierFacture.xaml;FenetreModifierProduit.xaml;MainWindow.xaml;PageAccueil.xaml;PageDashboard.xaml;PageGestionFacture.xaml;PageGestionProduit.xaml;PageInscription.xaml;PageProspectsClients.xaml;PageRendezVous.xaml;
+>>>>>>> origin/main
 
-False
+True
 

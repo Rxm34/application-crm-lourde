@@ -127,6 +127,8 @@ C:/Users/rborde/source/repos/AppCrmLourde/AppCrmLourde/bin/Debug/System.ValueTup
 /app/AppCrmLourde/obj/Debug/AppCrmLourde.Properties.Resources.resources
 /app/AppCrmLourde/obj/Debug/AppCrmLourde.csproj.GenerateResource.cache
 /app/AppCrmLourde/obj/Debug/AppCrmLourde.csproj.CoreCompileInputs.cache
+<<<<<<< HEAD
+=======
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\AppCrmLourde.csproj.AssemblyReference.cache
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\AppCrmLourde.exe.config
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreAjouterFacture.baml
@@ -250,3 +252,4 @@ C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\AppCr
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\AppCrmLourde.csproj.GenerateResource.cache
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\AppCrmLourde.csproj.CoreCompileInputs.cache
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\AppCrmLo.2432ECE4.Up2Date
+>>>>>>> origin/main

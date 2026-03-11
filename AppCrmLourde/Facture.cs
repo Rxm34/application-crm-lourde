@@ -15,7 +15,6 @@ namespace AppCrmLourde
         public double PrixFact { get; set; }
 
         public string NomClient { get; set; }
-        public string NomProduit { get; set; }
 
         public DateTime DateFact { get; set; }
 

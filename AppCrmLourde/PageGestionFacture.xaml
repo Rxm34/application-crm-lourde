@@ -45,10 +45,15 @@
                   Margin="0,0,0,10">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id Facture" Binding="{Binding IdFact}" Width="*"/>
+<<<<<<< HEAD
+                <DataGridTextColumn Header="Client" Binding="{Binding NomClient}" Width="2*"/>
+                <DataGridTextColumn Header="Prix Total" Binding="{Binding PrixFact, StringFormat=C2}" Width="*"/>
+=======
                 <DataGridTextColumn Header="Client" Binding="{Binding NomClient}" Width="*"/>
                 <DataGridTextColumn Header="Produit" Binding="{Binding NomProduit}" Width="*"/>
                 <DataGridTextColumn Header="Quantité" Binding="{Binding Lignes[0].Qte}" Width="*"/>
                 <DataGridTextColumn Header="Prix Facture" Binding="{Binding PrixFact}" Width="*"/>
+>>>>>>> origin/main
                 <DataGridTextColumn Header="Date Facture" Binding="{Binding DateFact, StringFormat=dd/MM/yyyy}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
