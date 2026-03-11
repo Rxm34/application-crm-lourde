@@ -18,6 +18,8 @@ namespace AppCrmLourde
 
         public DateTime DateFact { get; set; }
 
+        public List<LigneFact> Lignes { get; set; } = new List<LigneFact>();
+
         public Facture()
         {
 

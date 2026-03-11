@@ -58,10 +58,20 @@ namespace AppCrmLourde
             NouvelleFacture = new Facture
             {
                 IdCli = idCli,
+<<<<<<< HEAD
                 PrixFact = 0,
                 DateFact = DateFacturePicker.SelectedDate ?? DateTime.Now,
                 NomClient = selectedClient.NomCli + " " + selectedClient.PrenomCli
+=======
+                PrixFact = Convert.ToDouble(selectedProduit.PrixProd) * qte,
+                DateFact = DateFacturePicker.SelectedDate ?? DateTime.Now
+>>>>>>> origin/main
             };
+            NouvelleFacture.Lignes.Add(new LigneFact
+            {
+                IdProd = idProd,
+                Qte = qte
+            });
 
             this.DialogResult = true;
             this.Close();
