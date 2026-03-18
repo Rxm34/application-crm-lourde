@@ -219,23 +219,68 @@ namespace AppCrmLourde
             Facture f = FacturesDataGrid.SelectedItem as Facture;
             if (f == null) return;
 
-            if (MessageBox.Show($"Supprimer la facture #{f.IdFact} ?", "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (MessageBox.Show($"Supprimer la facture #{f.IdFact} ? Cela remettra les produits en stock.", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                try
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
-                    using (MySqlConnection conn = new MySqlConnection(connectionString))
+                    conn.Open();
+                    using (MySqlTransaction trans = conn.BeginTransaction())
                     {
-                        conn.Open();
-                        // Supprime d'abord les lignes (Foreign Key)
-                        new MySqlCommand($"DELETE FROM lignefact WHERE IdFact={f.IdFact}", conn).ExecuteNonQuery();
-                        // Supprime la facture
-                        new MySqlCommand($"DELETE FROM factures WHERE IdFact={f.IdFact}", conn).ExecuteNonQuery();
+                        try
+                        {
+                            // 1. Récupérer toutes les lignes de cette facture pour connaître les quantités à rendre
+                            string queryGetLignes = "SELECT IdProd, Qte FROM lignefact WHERE IdFact = @idF";
+                            MySqlCommand cmdGet = new MySqlCommand(queryGetLignes, conn, trans);
+                            cmdGet.Parameters.AddWithValue("@idF", f.IdFact);
+
+                            List<(int idProd, int qte)> lignesARendre = new List<(int, int)>();
+                            using (var reader = cmdGet.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    lignesARendre.Add((reader.GetInt32("IdProd"), reader.GetInt32("Qte")));
+                                }
+                            }
+
+                            // 2. Remettre les quantités en stock pour chaque produit
+                            foreach (var ligne in lignesARendre)
+                            {
+                                string queryUpdateStock = "UPDATE produits SET StockProd = StockProd + @qte WHERE IdProd = @idP";
+                                MySqlCommand cmdStock = new MySqlCommand(queryUpdateStock, conn, trans);
+                                cmdStock.Parameters.AddWithValue("@qte", ligne.qte);
+                                cmdStock.Parameters.AddWithValue("@idP", ligne.idProd);
+                                cmdStock.ExecuteNonQuery();
+                            }
+
+                            // 3. Supprimer les lignes de la facture (Contrainte clé étrangère)
+                            string queryDelLignes = "DELETE FROM lignefact WHERE IdFact = @idF";
+                            MySqlCommand cmdDelL = new MySqlCommand(queryDelLignes, conn, trans);
+                            cmdDelL.Parameters.AddWithValue("@idF", f.IdFact);
+                            cmdDelL.ExecuteNonQuery();
+
+                            // 4. Supprimer la facture elle-même
+                            string queryDelFact = "DELETE FROM factures WHERE IdFact = @idF";
+                            MySqlCommand cmdDelF = new MySqlCommand(queryDelFact, conn, trans);
+                            cmdDelF.Parameters.AddWithValue("@idF", f.IdFact);
+                            cmdDelF.ExecuteNonQuery();
+
+                            // Valider la transaction
+                            trans.Commit();
+
+                            // Mise à jour de l'interface
+                            Factures.Remove(f);
+                            allEntries.Remove(f);
+                            LogAction("Suppression facture (Stock rendu)", $"ID:{f.IdFact}");
+
+                            MessageBox.Show("Facture supprimée et stock mis à jour.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            trans.Rollback();
+                            MessageBox.Show("Erreur lors de la suppression : " + ex.Message, "Erreur SQL", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
-                    Factures.Remove(f);
-                    allEntries.Remove(f);
-                    LogAction("Suppression facture", $"ID:{f.IdFact}");
                 }
-                catch (Exception ex) { MessageBox.Show("Erreur: " + ex.Message); }
             }
         }
 

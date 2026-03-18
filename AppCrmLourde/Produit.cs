@@ -18,6 +18,7 @@ namespace AppCrmLourde
 
         public int StockProd { get; set; }
         public string FullName => $"{IdProd} - {NomProd}";
+        public string AffichageStock => $"{NomProd} (Stock : {StockProd})";
 
         public Produit()
         {

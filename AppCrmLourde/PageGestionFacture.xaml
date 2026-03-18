@@ -10,7 +10,7 @@
     <Grid Margin="20" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="550"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
@@ -39,7 +39,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding IdFact}" Width="50"/>
                 <DataGridTextColumn Header="Client" Binding="{Binding NomClient}" Width="2*"/>
-                <DataGridTextColumn Header="Prix Total" Binding="{Binding PrixFact, StringFormat={}{0:C2}}" Width="*"/>
+                <DataGridTextColumn Header="Prix Total" Binding="{Binding PrixFact, StringFormat={}{0:N2} €}" Width="*"/>
                 <DataGridTextColumn Header="Date" Binding="{Binding DateFact, StringFormat=dd/MM/yyyy}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>

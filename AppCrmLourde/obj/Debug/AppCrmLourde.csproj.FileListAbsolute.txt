@@ -127,15 +127,12 @@ C:/Users/rborde/source/repos/AppCrmLourde/AppCrmLourde/bin/Debug/System.ValueTup
 /app/AppCrmLourde/obj/Debug/AppCrmLourde.Properties.Resources.resources
 /app/AppCrmLourde/obj/Debug/AppCrmLourde.csproj.GenerateResource.cache
 /app/AppCrmLourde/obj/Debug/AppCrmLourde.csproj.CoreCompileInputs.cache
-<<<<<<< HEAD
-=======
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\AppCrmLourde.csproj.AssemblyReference.cache
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\AppCrmLourde.exe.config
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreAjouterFacture.baml
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreAjouterModifier.baml
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreAjouterProduit.baml
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreAjouterRendezVous.baml
-C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreModifierFacture.baml
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreModifierProduit.baml
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\MainWindow.baml
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\PageAccueil.baml
@@ -148,7 +145,6 @@ C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\Fenet
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreAjouterModifier.g.cs
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreAjouterProduit.g.cs
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreAjouterRendezVous.g.cs
-C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreModifierFacture.g.cs
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreModifierProduit.g.cs
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\MainWindow.g.cs
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\PageAccueil.g.cs
@@ -252,8 +248,5 @@ C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\AppCr
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\AppCrmLourde.csproj.GenerateResource.cache
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\AppCrmLourde.csproj.CoreCompileInputs.cache
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\AppCrmLo.2432ECE4.Up2Date
->>>>>>> origin/main
-C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreAjouterModifierLigne.baml
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreLignesFacture.baml
-C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreAjouterModifierLigne.g.cs
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreLignesFacture.g.cs
