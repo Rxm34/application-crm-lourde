@@ -17,6 +17,7 @@ namespace AppCrmLourde
         public string MailMan { get; set; }
 
         public string MdpMan { get; set; }
+        public bool IsAdmin { get; set; }
 
         public string FullName => $"{NomMan} {PrenomMan}";
 

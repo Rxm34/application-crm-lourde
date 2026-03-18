@@ -1,0 +1,74 @@
+﻿<Page x:Class="AppCrmLourde.PageGestionClients"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Gestion des Clients" Height="720" Width="1280">
+
+    <Grid Margin="20" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="GESTION DE LA BASE CLIENTS" FontSize="26" FontWeight="Bold" Margin="0,0,0,20" Foreground="#2C3E50"/>
+
+        <DataGrid x:Name="ClientsDataGrid" Grid.Row="1" AutoGenerateColumns="False" 
+                  CanUserAddRows="False" SelectionChanged="ClientsDataGrid_SelectionChanged"
+                  Margin="0,0,0,20" BorderThickness="1" BorderBrush="#DDD" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding IdCli}" Width="50"/>
+                <DataGridTextColumn Header="Nom" Binding="{Binding NomCli}" Width="*"/>
+                <DataGridTextColumn Header="Prénom" Binding="{Binding PrenomCli}" Width="*"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding MailCli}" Width="1.5*"/>
+                <DataGridTextColumn Header="Téléphone" Binding="{Binding TelCli}" Width="*"/>
+                <DataGridTextColumn Header="Ville" Binding="{Binding VilleCli}" Width="*"/>
+                <DataGridTextColumn Header="Code Postal" Binding="{Binding CPCli}" Width="80"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Border Grid.Row="2" Padding="15" Background="#F9F9F9" CornerRadius="8" BorderBrush="#EEE" BorderThickness="1">
+            <StackPanel>
+                <UniformGrid Columns="3" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Nom :"/>
+                        <TextBox x:Name="txtNom" Height="30"/>
+                    </StackPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Prénom :"/>
+                        <TextBox x:Name="txtPrenom" Height="30"/>
+                    </StackPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Email :"/>
+                        <TextBox x:Name="txtEmail" Height="30"/>
+                    </StackPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Téléphone :"/>
+                        <TextBox x:Name="txtTel" Height="30"/>
+                    </StackPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Rue :"/>
+                        <TextBox x:Name="txtRue" Height="30"/>
+                    </StackPanel>
+                    <StackPanel Margin="5">
+                        <UniformGrid Columns="2">
+                            <StackPanel Margin="0,0,5,0">
+                                <TextBlock Text="CP :"/>
+                                <TextBox x:Name="txtCP" Height="30"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="Ville :"/>
+                                <TextBox x:Name="txtVille" Height="30"/>
+                            </StackPanel>
+                        </UniformGrid>
+                    </StackPanel>
+                </UniformGrid>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Retour" Width="100" Height="35" Margin="5" Click="BtnRetour_Click" Background="#9E9E9E" Foreground="White"/>
+                    <Button Content="🗑️ Supprimer" Width="120" Height="35" Margin="5" Click="BtnSupprimer_Click" Background="#F44336" Foreground="White"/>
+                    <Button x:Name="btnEnregistrer" Content="💾 Enregistrer" Width="150" Height="35" Margin="5" Click="BtnEnregistrer_Click" Background="#4CAF50" Foreground="White" FontWeight="Bold"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

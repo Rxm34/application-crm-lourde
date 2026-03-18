@@ -158,3 +158,12 @@ APRÈS → ID:1, Client:Bernard Ouestcelait, Produit:FERRARI, Qte:5, Prix:607270
 [2026-03-18 13:48:17] Borde (remy.borde34@gmail.com) : Connexion réussie pour remy.borde34@gmail.com
 [2026-03-18 13:49:16] Rémy Borde (remy.borde34@gmail.com) : Suppression facture (Stock rendu) : ID:8
 [2026-03-18 13:49:35] Rémy Borde (remy.borde34@gmail.com) : Ajout facture : ID:9, Client:Dupont Jean, Total:0
+[2026-03-18 14:17:47] Création Manager : Nom:Borde, Email:remy.borde34@gmail.com, Admin:True
+[2026-03-18 14:18:11] Borde (remy.borde34@gmail.com) : Connexion réussie : remy.borde34@gmail.com (Admin: True)
+[2026-03-18 14:22:03] Borde (remy.borde34@gmail.com) : Connexion réussie : remy.borde34@gmail.com (Admin: True)
+[2026-03-18 14:29:02] Borde (remy.borde34@gmail.com) : Connexion réussie : remy.borde34@gmail.com (Admin: True)
+[2026-03-18 14:32:00] Borde (remy.borde34@gmail.com) : Connexion réussie : remy.borde34@gmail.com (Admin: True)
+[2026-03-18 14:35:49] Borde (remy.borde34@gmail.com) : Connexion réussie : remy.borde34@gmail.com (Admin: True)
+[2026-03-18 14:39:40] Borde (remy.borde34@gmail.com) : Connexion réussie : remy.borde34@gmail.com (Admin: True)
+[2026-03-18 14:44:48] Borde (remy.borde34@gmail.com) : Connexion réussie : remy.borde34@gmail.com (Admin: True)
+[2026-03-18 14:46:38] Borde (remy.borde34@gmail.com) : Connexion réussie : remy.borde34@gmail.com (Admin: True)

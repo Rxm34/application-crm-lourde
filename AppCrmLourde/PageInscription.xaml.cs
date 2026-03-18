@@ -3,33 +3,26 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using MySql.Data.MySqlClient;
+using BCrypt.Net; // Indispensable après l'installation du package
 
 namespace AppCrmLourde
 {
     public partial class PageInscription : Page
     {
-        // ===================== ATTRIBUTS =====================
         private string connectionString = "server=localhost;database=application_crm_lourde;uid=root;pwd=root;";
         private readonly string logFile = "logs.txt";
 
-        // ===================== CONSTRUCTEUR =====================
         public PageInscription()
         {
             InitializeComponent();
         }
 
-        // ===================== LOG =====================
         private void LogAction(string action, string details)
         {
             string logEntry = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {action} : {details}";
-            try
-            {
-                File.AppendAllText(logFile, logEntry + Environment.NewLine);
-            }
-            catch { }
+            try { File.AppendAllText(logFile, logEntry + Environment.NewLine); } catch { }
         }
 
-        // ===================== INSCRIPTION =====================
         private void btnInscription_Click(object sender, RoutedEventArgs e)
         {
             lblMessage.Text = "";
@@ -38,25 +31,27 @@ namespace AppCrmLourde
             string nom = txtNom.Text.Trim();
             string prenom = txtPrenom.Text.Trim();
             string email = txtEmail.Text.Trim();
-            string mdp = txtMotDePasse.Password.Trim();
+            string mdpClair = txtMotDePasse.Password.Trim();
             string mdpConfirm = txtMotDePasseConfirm.Password.Trim();
+            bool isAdmin = chkIsAdmin.IsChecked ?? false;
 
-            // 🔹 Vérifications (même logique que ProspectsClients)
-            if (string.IsNullOrWhiteSpace(nom) ||
-                string.IsNullOrWhiteSpace(prenom) ||
-                string.IsNullOrWhiteSpace(email) ||
-                string.IsNullOrWhiteSpace(mdp) ||
-                string.IsNullOrWhiteSpace(mdpConfirm))
+            // 1. Vérifications de base
+            if (string.IsNullOrWhiteSpace(nom) || string.IsNullOrWhiteSpace(prenom) ||
+                string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(mdpClair))
             {
                 lblMessage.Text = "Tous les champs sont obligatoires.";
                 return;
             }
 
-            if (mdp != mdpConfirm)
+            if (mdpClair != mdpConfirm)
             {
                 lblMessage.Text = "Les mots de passe ne correspondent pas.";
                 return;
             }
+
+            // 2. Hachage du mot de passe (Cryptage)
+            // On ne stocke jamais mdpClair, on génère une empreinte unique (le hash)
+            string mdpHache = BCrypt.Net.BCrypt.HashPassword(mdpClair);
 
             try
             {
@@ -64,57 +59,47 @@ namespace AppCrmLourde
                 {
                     conn.Open();
 
-                    // 🔹 Vérification email existant
+                    // Vérification email existant
                     string checkQuery = "SELECT COUNT(*) FROM managers WHERE MailMan = @mail";
                     MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn);
                     checkCmd.Parameters.AddWithValue("@mail", email);
 
-                    int exists = Convert.ToInt32(checkCmd.ExecuteScalar());
-                    if (exists > 0)
+                    if (Convert.ToInt32(checkCmd.ExecuteScalar()) > 0)
                     {
                         lblMessage.Text = "Cet email est déjà utilisé.";
                         return;
                     }
 
-                    // 🔹 Insertion manager
+                    // 3. Insertion avec le mot de passe haché
                     string insertQuery = @"
-                        INSERT INTO managers (NomMan, PrenomMan, MailMan, MdpMan)
-                        VALUES (@nom, @prenom, @mail, @mdp)";
+                        INSERT INTO managers (NomMan, PrenomMan, MailMan, MdpMan, IsAdmin)
+                        VALUES (@nom, @prenom, @mail, @mdp, @isAdmin)";
 
                     MySqlCommand insertCmd = new MySqlCommand(insertQuery, conn);
                     insertCmd.Parameters.AddWithValue("@nom", nom);
                     insertCmd.Parameters.AddWithValue("@prenom", prenom);
                     insertCmd.Parameters.AddWithValue("@mail", email);
-                    insertCmd.Parameters.AddWithValue("@mdp", mdp);
+                    insertCmd.Parameters.AddWithValue("@mdp", mdpHache); // On insère la version sécurisée
+                    insertCmd.Parameters.AddWithValue("@isAdmin", isAdmin ? 1 : 0);
+
                     insertCmd.ExecuteNonQuery();
                 }
 
                 lblMessage.Foreground = System.Windows.Media.Brushes.Green;
-                lblMessage.Text = "Inscription réussie. Vous pouvez vous connecter.";
+                lblMessage.Text = "Inscription réussie !";
 
-                LogAction(
-                    "Création Manager",
-                    $"Nom:{nom}, Prénom:{prenom}, Email:{email}"
-                );
+                LogAction("Création Manager", $"Nom:{nom}, Email:{email}, Admin:{isAdmin}");
 
-                // Redirection connexion
+                MessageBox.Show("Compte sécurisé créé avec succès !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
                 Hyperlink_Connexion_Click(sender, e);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur lors de l'inscription : " + ex.Message,
-                    "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                MessageBox.Show("Erreur : " + ex.Message, "Erreur SQL", MessageBoxButton.OK, MessageBoxImage.Error);
                 LogAction("Erreur Inscription", ex.Message);
-            }
-            finally
-            {
-                txtMotDePasse.Password = "";
-                txtMotDePasseConfirm.Password = "";
             }
         }
 
-        // ===================== NAVIGATION =====================
         private void Hyperlink_Connexion_Click(object sender, RoutedEventArgs e)
         {
             if (Application.Current.MainWindow is MainWindow mainWindow)

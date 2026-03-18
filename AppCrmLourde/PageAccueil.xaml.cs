@@ -22,6 +22,15 @@ namespace AppCrmLourde
             InitializeComponent();
             DataContext = this;
 
+            // --- VÉRIFICATION ADMIN ---
+            // On vérifie si le bouton existe et si l'utilisateur n'est PAS admin
+            // 'btnAdmin' est le Name que nous allons donner au bouton dans le XAML
+            if (SessionManager.ManagerConnecte != null && !SessionManager.ManagerConnecte.IsAdmin)
+            {
+                // Si l'utilisateur n'est pas admin, on cache le bouton et on libère l'espace (Collapsed)
+                BtnPageAdmin.Visibility = Visibility.Collapsed;
+            }
+
             // Chargement de l'agenda depuis MySQL
             RefreshAgenda();
         }
@@ -100,29 +109,31 @@ namespace AppCrmLourde
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@today", today);
 
-                    MySqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        Contact c = new Contact
+                        while (reader.Read())
                         {
-                            IdContact = reader.GetInt32("IdContact"),
-                            DateRdv = reader.GetDateTime("DateRdv"),
-                            HeureRdv = reader.GetTimeSpan("HeureRdv"),
-                            DureeRdv = reader.GetInt32("DureeRdv"),
-                            IdCli = reader["IdCli"] != DBNull.Value ? new Client
+                            Contact c = new Contact
                             {
-                                IdCli = reader.GetInt32("IdCli"),
-                                NomCli = reader.GetString("NomCli"),
-                                PrenomCli = reader.GetString("PrenomCli")
-                            } : null,
-                            IdProsp = reader["IdProsp"] != DBNull.Value ? new Prospect
-                            {
-                                IdProsp = reader.GetInt32("IdProsp"),
-                                NomProsp = reader.GetString("NomProsp"),
-                                PrenomProsp = reader.GetString("PrenomProsp")
-                            } : null
-                        };
-                        todayAppointments.Add(c);
+                                IdContact = reader.GetInt32("IdContact"),
+                                DateRdv = reader.GetDateTime("DateRdv"),
+                                HeureRdv = reader.GetTimeSpan("HeureRdv"),
+                                DureeRdv = reader.GetInt32("DureeRdv"),
+                                IdCli = reader["IdCli"] != DBNull.Value ? new Client
+                                {
+                                    IdCli = reader.GetInt32("IdCli"),
+                                    NomCli = reader.GetString("NomCli"),
+                                    PrenomCli = reader.GetString("PrenomCli")
+                                } : null,
+                                IdProsp = reader["IdProsp"] != DBNull.Value ? new Prospect
+                                {
+                                    IdProsp = reader.GetInt32("IdProsp"),
+                                    NomProsp = reader.GetString("NomProsp"),
+                                    PrenomProsp = reader.GetString("PrenomProsp")
+                                } : null
+                            };
+                            todayAppointments.Add(c);
+                        }
                     }
                 }
 
@@ -200,5 +211,6 @@ namespace AppCrmLourde
         private void BtnPage3_Click(object sender, RoutedEventArgs e) => NavigationService?.Navigate(new PageGestionProduit());
         private void BtnPage4_Click(object sender, RoutedEventArgs e) => NavigationService?.Navigate(new PageGestionFacture());
         private void BtnPage5_Click(object sender, RoutedEventArgs e) => NavigationService?.Navigate(new PageDashboard());
+        private void BtnPage6_Click(object sender, RoutedEventArgs e) => NavigationService?.Navigate(new PageAdmin());
     }
 }

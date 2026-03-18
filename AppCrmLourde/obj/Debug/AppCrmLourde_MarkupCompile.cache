@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\App.xaml
-141551537204
+19-1749325961
 
-28-700934088
+331766480685
 571669343062
-FenetreAjouterFacture.xaml;FenetreLignesFacture.xaml;FenetreAjouterModifier.xaml;FenetreAjouterProduit.xaml;FenetreAjouterRendezVous.xaml;FenetreModifierProduit.xaml;MainWindow.xaml;PageAccueil.xaml;PageDashboard.xaml;PageGestionFacture.xaml;PageGestionProduit.xaml;PageInscription.xaml;PageProspectsClients.xaml;PageRendezVous.xaml;
+FenetreAjouterFacture.xaml;FenetreLignesFacture.xaml;FenetreAjouterModifier.xaml;FenetreAjouterProduit.xaml;FenetreAjouterRendezVous.xaml;FenetreModifierProduit.xaml;MainWindow.xaml;PageAccueil.xaml;PageAdmin.xaml;PageDashboard.xaml;PageGestionClients.xaml;PageGestionFacture.xaml;PageGestionFactures.xaml;PageGestionManagers.xaml;PageGestionProduit.xaml;PageGestionProduits.xaml;PageInscription.xaml;PageProspectsClients.xaml;PageRendezVous.xaml;
 
 False
 

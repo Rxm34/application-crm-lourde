@@ -196,14 +196,29 @@
       <DependentUpon>FenetreModifierProduit.xaml</DependentUpon>
     </Compile>
     <Compile Include="Logger.cs" />
+    <Compile Include="PageAdmin.xaml.cs">
+      <DependentUpon>PageAdmin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageDashboard.xaml.cs">
       <DependentUpon>PageDashboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageGestionClients.xaml.cs">
+      <DependentUpon>PageGestionClients.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageGestionFacture.xaml.cs">
       <DependentUpon>PageGestionFacture.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PageGestionFactures.xaml.cs">
+      <DependentUpon>PageGestionFactures.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageGestionManagers.xaml.cs">
+      <DependentUpon>PageGestionManagers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageGestionProduit.xaml.cs">
       <DependentUpon>PageGestionProduit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageGestionProduits.xaml.cs">
+      <DependentUpon>PageGestionProduits.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageRendezVous.xaml.cs">
       <DependentUpon>PageRendezVous.xaml</DependentUpon>
@@ -251,7 +266,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PageAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PageDashboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageGestionClients.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -259,7 +282,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PageGestionFactures.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageGestionManagers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PageGestionProduit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageGestionProduits.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

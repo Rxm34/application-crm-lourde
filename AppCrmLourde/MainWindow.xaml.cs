@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using MySql.Data.MySqlClient;
+using BCrypt.Net; // Nécessite le package NuGet BCrypt.Net-Next
 
 namespace AppCrmLourde
 {
@@ -12,6 +13,9 @@ namespace AppCrmLourde
 
         public MainWindow()
         {
+            // Optionnel : force la culture française pour l'Euro et les dates
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("fr-FR");
+
             InitializeComponent();
         }
 
@@ -20,14 +24,13 @@ namespace AppCrmLourde
             lblMessage.Text = "";
 
             string email = txtEmail.Text.Trim();
-            string password = txtMotDePasse.Password;
+            string passwordSaisi = txtMotDePasse.Password;
 
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(passwordSaisi))
             {
                 string msg = "Veuillez saisir votre email et mot de passe.";
                 lblMessage.Text = msg;
                 lblMessage.Foreground = Brushes.Red;
-                Logger.Log(msg);
                 return;
             }
 
@@ -38,54 +41,66 @@ namespace AppCrmLourde
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "SELECT * FROM managers WHERE MailMan=@mail AND MdpMan=@pass LIMIT 1";
+
+                    // 1. On cherche l'utilisateur uniquement par son email
+                    string query = "SELECT * FROM managers WHERE MailMan=@mail LIMIT 1";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@mail", email);
-                    cmd.Parameters.AddWithValue("@pass", password); // Si stocké en clair, sinon adapter avec hash
 
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            managerConnecte = new Manager
+                            // On récupère le mot de passe haché qui est dans la base
+                            string mdpHacheStocke = reader.GetString("MdpMan");
+
+                            // 2. Vérification du mot de passe saisi avec le hachage
+                            if (BCrypt.Net.BCrypt.Verify(passwordSaisi, mdpHacheStocke))
                             {
-                                IdMan = reader.GetInt32("IdMan"),
-                                PrenomMan = reader.GetString("PrenomMan"),
-                                NomMan = reader.GetString("NomMan"),
-                                MailMan = reader.GetString("MailMan")
-                            };
+                                managerConnecte = new Manager
+                                {
+                                    IdMan = reader.GetInt32("IdMan"),
+                                    PrenomMan = reader.GetString("PrenomMan"),
+                                    NomMan = reader.GetString("NomMan"),
+                                    MailMan = reader.GetString("MailMan"),
+                                    IsAdmin = reader.GetBoolean("IsAdmin") // Récupération du rôle Admin
+                                };
+                            }
                         }
                     }
                 }
 
                 if (managerConnecte != null)
                 {
-                    // Stockage du manager connecté
+                    // Connexion réussie
                     SessionManager.ManagerConnecte = managerConnecte;
 
-                    string msg = $"Connexion réussie pour {managerConnecte.MailMan}";
-                    lblMessage.Text = $"Connexion réussie ! Bienvenue {managerConnecte.PrenomMan} {managerConnecte.NomMan}";
+                    lblMessage.Text = $"Bienvenue {managerConnecte.PrenomMan} !";
                     lblMessage.Foreground = Brushes.Green;
-                    Logger.Log(msg);
 
+                    Logger.Log($"Connexion réussie : {managerConnecte.MailMan} (Admin: {managerConnecte.IsAdmin})");
+
+                    // Masquer le panel de connexion et naviguer vers l'accueil
                     ConnexionBorder.Visibility = Visibility.Collapsed;
                     MainFrame.Navigate(new PageAccueil());
                 }
                 else
                 {
+                    // Email introuvable OU mot de passe incorrect
                     string msg = "Email ou mot de passe invalide.";
                     lblMessage.Text = msg;
                     lblMessage.Foreground = Brushes.Red;
-                    Logger.Log($"Tentative de connexion échouée pour {email} : {msg}");
+                    Logger.Log($"Échec de connexion pour : {email}");
                 }
             }
             catch (Exception ex)
             {
-                string msg = "Erreur inattendue lors de la connexion : " + ex.Message;
+                string msg = "Erreur de connexion : " + ex.Message;
                 Logger.Log(msg);
                 MessageBox.Show(msg, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+            // Sécurité : on vide toujours le champ mot de passe après l'essai
             txtMotDePasse.Password = string.Empty;
         }
 

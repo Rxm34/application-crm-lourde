@@ -1,0 +1,30 @@
+﻿<Page x:Class="AppCrmLourde.PageGestionFactures"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Admin - Factures" Height="720" Width="1280">
+
+    <Grid Margin="20" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="550"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="ADMINISTRATION DES FACTURES" FontSize="26" FontWeight="Bold" Margin="0,0,0,20" Foreground="#2C3E50"/>
+
+        <DataGrid x:Name="FacturesDataGrid" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="N°" Binding="{Binding IdFact}" Width="60"/>
+                <DataGridTextColumn Header="Client" Binding="{Binding NomClient}" Width="2*"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding DateFact, StringFormat=dd/MM/yyyy}" Width="*"/>
+                <DataGridTextColumn Header="Total" Binding="{Binding PrixFact, StringFormat={}{0:N2} €}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Retour" Width="100" Height="35" Margin="5" Click="BtnRetour_Click" Background="#9E9E9E" Foreground="White"/>
+            <Button Content="🗑️ Supprimer Facture" Width="160" Height="35" Margin="5" Click="BtnSupprimer_Click" Background="#F44336" Foreground="White"/>
+            <Button Content="✏️ Gérer les Lignes" Width="160" Height="35" Margin="5" Click="BtnModifierLignes_Click" Background="#2196F3" Foreground="White"/>
+        </StackPanel>
+    </Grid>
+</Page>

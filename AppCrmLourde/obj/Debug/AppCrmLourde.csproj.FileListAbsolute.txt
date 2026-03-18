@@ -250,3 +250,13 @@ C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\AppCr
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\AppCrmLo.2432ECE4.Up2Date
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreLignesFacture.baml
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\FenetreLignesFacture.g.cs
+C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\PageAdmin.baml
+C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\PageAdmin.g.cs
+C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\PageGestionProduits.baml
+C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\PageGestionProduits.g.cs
+C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\PageGestionClients.baml
+C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\PageGestionClients.g.cs
+C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\PageGestionManagers.baml
+C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\PageGestionManagers.g.cs
+C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\PageGestionFactures.baml
+C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde\obj\Debug\PageGestionFactures.g.cs
