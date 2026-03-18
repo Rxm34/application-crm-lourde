@@ -7,27 +7,7 @@
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Text="PANNEAU D'ADMINISTRATION" FontSize="32" FontWeight="Bold" Foreground="#333" Margin="0,0,0,40" HorizontalAlignment="Center"/>
 
-            <UniformGrid Columns="4" Width="1000">
-                <Button Margin="20" Height="150" Background="White" Click="BtnGestionProduits_Click">
-                    <StackPanel>
-                        <TextBlock Text="📦" FontSize="40" HorizontalAlignment="Center"/>
-                        <TextBlock Text="Produits &amp; Stocks" FontSize="18" FontWeight="Bold" Margin="0,10,0,0"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Margin="20" Height="150" Background="White" Click="BtnGestionClients_Click">
-                    <StackPanel>
-                        <TextBlock Text="👥" FontSize="40" HorizontalAlignment="Center"/>
-                        <TextBlock Text="Clients &amp; Prospects" FontSize="18" FontWeight="Bold" Margin="0,10,0,0"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Margin="20" Height="150" Background="White" Click="BtnGestionFactures_Click">
-                    <StackPanel>
-                        <TextBlock Text="📄" FontSize="40" HorizontalAlignment="Center"/>
-                        <TextBlock Text="Historique Factures" FontSize="18" FontWeight="Bold" Margin="0,10,0,0"/>
-                    </StackPanel>
-                </Button>
+            <UniformGrid Columns="1" Width="500">
 
                 <Button Margin="20" Height="150" Background="White" Click="BtnGestionManagers_Click">
                     <StackPanel>
