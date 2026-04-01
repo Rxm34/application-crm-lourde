@@ -174,3 +174,15 @@ AVANT → Date: 2026-03-11, Heure: 14:00:00, Durée: 1
 APRÈS → Date: 2026-03-18, Heure: 17:00:00, Durée: 1
 [2026-03-18 15:34:46] Rémy Borde : Ouverture Dashboard : Page Dashboard chargée
 [2026-03-18 15:35:09] Rémy Borde : Ouverture Dashboard : Page Dashboard chargée
+[2026-03-18 15:36:38] Borde (remy.borde34@gmail.com) : Connexion réussie : remy.borde34@gmail.com (Admin: True)
+[2026-03-18 16:33:23] Borde (remy.borde34@gmail.com) : Connexion réussie : remy.borde34@gmail.com (Admin: True)
+[2026-03-18 16:51:05] Rémy Borde : Ouverture Dashboard : Page Dashboard chargée
+[2026-03-18 16:52:25] Rémy Borde : Ouverture Dashboard : Page Dashboard chargée
+[2026-04-01 12:54:01] Borde (remy.borde34@gmail.com) : Connexion réussie : remy.borde34@gmail.com (Admin: True)
+[2026-04-01 12:54:31] Rémy Borde (remy.borde34@gmail.com) : Modification RDV : ID: 1
+AVANT → Date: 2026-03-18, Heure: 17:00:00, Durée: 1
+APRÈS → Date: 2026-04-01, Heure: 17:00:00, Durée: 1
+[2026-04-01 12:54:54] Rémy Borde : Ouverture Dashboard : Page Dashboard chargée
+[2026-04-01 13:32:00] Borde (remy.borde34@gmail.com) : Connexion réussie : remy.borde34@gmail.com (Admin: True)
+[2026-04-01 13:32:50] Rémy Borde (remy.borde34@gmail.com) : Conversion : Prospect ID:1 converti en Client ID:2
+[2026-04-01 13:33:52] Rémy Borde : Ouverture Dashboard : Page Dashboard chargée

@@ -138,3 +138,5 @@ C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde.Tests\obj\Debug
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde.Tests\obj\Debug\AppCrmLo.3F39FEEC.Up2Date
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde.Tests\obj\Debug\AppCrmLourde.Tests.dll
 C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde.Tests\obj\Debug\AppCrmLourde.Tests.pdb
+C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde.Tests\bin\Debug\BCrypt.Net-Next.dll
+C:\Users\rborde\source\repos\application-crm-lourde\AppCrmLourde.Tests\bin\Debug\BCrypt.Net-Next.xml
